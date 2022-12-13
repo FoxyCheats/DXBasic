@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="config">
+      <UniqueIdentifier>{7B6CE4F6-670E-0FCD-50C9-22213C0A961D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core">
+      <UniqueIdentifier>{4E40957C-3A77-960D-E363-7C10CF79120F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="exceptions">
+      <UniqueIdentifier>{67C00D32-5378-4F7F-BC7F-28DBA856EA6F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="features">
+      <UniqueIdentifier>{04AE61E7-F07A-BCF2-1994-AA9A05C0F180}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="fiber">
+      <UniqueIdentifier>{AD05700F-191A-98C0-E29B-3B204E6F94F1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui">
+      <UniqueIdentifier>{8A78880B-F681-887C-7FFD-9E7CEB05947C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hooks">
+      <UniqueIdentifier>{09B9970F-75CD-BFC0-3E4F-6320AA22BCF1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hooks\detour_hooks">
+      <UniqueIdentifier>{AE026CB8-9AE6-2C0E-0347-2761EF491790}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hooks\vmt_hooks">
+      <UniqueIdentifier>{B20B8035-1E97-EDF9-27A8-70EE93B249FA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="memory">
+      <UniqueIdentifier>{DEA8820D-CA4A-ADE3-B305-C1379F463434}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="natives">
+      <UniqueIdentifier>{FFCEF801-6BAE-779D-74C6-0274E024DEFE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="natives\crossmap">
+      <UniqueIdentifier>{F6C95253-E2C2-71A5-0BF5-562AF74C51B1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="natives\invoker">
+      <UniqueIdentifier>{CCD1C1A0-385D-2F65-416E-B259AD788B65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="pch">
+      <UniqueIdentifier>{809C880B-ECA5-887C-7521-9F7CE129947C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rage">
+      <UniqueIdentifier>{043D9D7C-F073-9E0D-9960-841085761A0F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="renderer">
+      <UniqueIdentifier>{9C6AA017-8837-FB22-B150-E9CA9D7C30B1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="renderer\fonts">
+      <UniqueIdentifier>{F5E95B4A-E1B7-4F50-CA4B-C076B6B82BB5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="script">
+      <UniqueIdentifier>{BA0F601B-A6B1-8AF1-8F6C-9E457BAD1142}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="script\self">
+      <UniqueIdentifier>{333F34EA-9FF4-ACDF-28E9-A6B6949DA3E3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="stack">
+      <UniqueIdentifier>{DB476110-475C-89C1-10DE-2C217CB185F2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="stack\x64">
+      <UniqueIdentifier>{CC88436D-38F3-F7E3-8131-A989EDDAD538}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\config\config.h">
+      <Filter>config</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\core.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\logger.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\exceptions\exception_handler.h">
+      <Filter>exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="src\features\features.h">
+      <Filter>features</Filter>
+    </ClInclude>
+    <ClInclude Include="src\fiber\fiber.h">
+      <Filter>fiber</Filter>
+    </ClInclude>
+    <ClInclude Include="src\fiber\manager.h">
+      <Filter>fiber</Filter>
+    </ClInclude>
+    <ClInclude Include="src\fiber\queue.h">
+      <Filter>fiber</Filter>
+    </ClInclude>
+    <ClInclude Include="src\framework.h" />
+    <ClInclude Include="src\gui\gui.h">
+      <Filter>gui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hooks\detour_hooks\detour_hooks.h">
+      <Filter>hooks\detour_hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hooks\hooks.h">
+      <Filter>hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hooks\vmt_hooks\vmt_hooks.h">
+      <Filter>hooks\vmt_hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="src\memory\mem.h">
+      <Filter>memory</Filter>
+    </ClInclude>
+    <ClInclude Include="src\memory\module.h">
+      <Filter>memory</Filter>
+    </ClInclude>
+    <ClInclude Include="src\memory\pattern_batch.h">
+      <Filter>memory</Filter>
+    </ClInclude>
+    <ClInclude Include="src\memory\pointers.h">
+      <Filter>memory</Filter>
+    </ClInclude>
+    <ClInclude Include="src\memory\signature.h">
+      <Filter>memory</Filter>
+    </ClInclude>
+    <ClInclude Include="src\natives\crossmap\crossmap.h">
+      <Filter>natives\crossmap</Filter>
+    </ClInclude>
+    <ClInclude Include="src\natives\invoker\invoker.h">
+      <Filter>natives\invoker</Filter>
+    </ClInclude>
+    <ClInclude Include="src\natives\natives.h">
+      <Filter>natives</Filter>
+    </ClInclude>
+    <ClInclude Include="src\natives\types.h">
+      <Filter>natives</Filter>
+    </ClInclude>
+    <ClInclude Include="src\pch\pch.h">
+      <Filter>pch</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rage\classdefs.h">
+      <Filter>rage</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rage\classes.h">
+      <Filter>rage</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rage\enums.h">
+      <Filter>rage</Filter>
+    </ClInclude>
+    <ClInclude Include="src\renderer\fonts\icon_font.h">
+      <Filter>renderer\fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="src\renderer\renderer.h">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\script\script.h">
+      <Filter>script</Filter>
+    </ClInclude>
+    <ClInclude Include="src\script\self\self.h">
+      <Filter>script\self</Filter>
+    </ClInclude>
+    <ClInclude Include="src\stack\call_spoof.h">
+      <Filter>stack</Filter>
+    </ClInclude>
+    <ClInclude Include="src\stack\x64\disassembler.h">
+      <Filter>stack\x64</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\option_types\abstract_option.h" />
+    <ClInclude Include="src\gui\submenu_types\submenu.h" />
+    <ClInclude Include="src\gui\option_types\regular_option.h" />
+    <ClInclude Include="src\script\home\home.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\config\config.cpp">
+      <Filter>config</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\core.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\features\features.cpp">
+      <Filter>features</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\gui.cpp">
+      <Filter>gui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hooks\convert_thread_to_fiber.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hooks\get_thread_context.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hooks\hooks.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hooks\present.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hooks\resize_buffers.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="src\hooks\script_virtual_machine.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\memory\pointers.cpp">
+      <Filter>memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\natives\invoker\invoker.cpp">
+      <Filter>natives\invoker</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pch\pch.cpp">
+      <Filter>pch</Filter>
+    </ClCompile>
+    <ClCompile Include="src\renderer\renderer.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\script\script.cpp">
+      <Filter>script</Filter>
+    </ClCompile>
+    <ClCompile Include="src\script\self\self.cpp">
+      <Filter>script\self</Filter>
+    </ClCompile>
+    <ClCompile Include="src\script\home\home.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Masm Include="src\stack\call_spoof.asm">
+      <Filter>stack</Filter>
+    </Masm>
+  </ItemGroup>
+</Project>
