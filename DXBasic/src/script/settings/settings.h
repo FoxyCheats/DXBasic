@@ -7,9 +7,9 @@
 namespace script {
 	using namespace gui::menu::types;
 	using namespace gui::menu::options::types;
-	class home : public submenu {
+	class settings : public submenu {
 	public:
-		home();
+		settings();
 	public:
 		static void call(submenu& sub);
 	};

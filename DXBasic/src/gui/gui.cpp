@@ -19,8 +19,16 @@ namespace gui {
 			g_right = false;
 		}
 	}
+	namespace sizes {
+		ImVec2 getTextSize(std::string text) {
+			return ImGui::CalcTextSize(text.c_str(), NULL, false, rects::g_width);
+		}
+	}
 	namespace menu {
 		void push(menu::types::submenu menu) {
+			if (!menu.m_maxOptions) {
+				menu.m_maxOptions = 12;
+			}
 			g_menuToPush = menu;
 			g_pushMenu = true;
 		}
@@ -44,7 +52,7 @@ namespace gui {
 				text(BRANDING_NAME, ImVec2(g_pos.x + offset, (g_pos.y + (sizes::rects::g_header.y / 2.f)) - 20.f), colors::texts::g_header, g_renderer->m_headerFont);
 			}
 			void subtitle() {
-				auto optionText = std::format("{}/{}", CURRENT_OPTION, OPTION_COUNT);
+				auto optionText = std::format("{}/{}", CURRENT_OPTION + 1, OPTION_COUNT);
 				auto rightAlignOffset = sizes::rects::g_width - ImGui::CalcTextSize(optionText.c_str()).x - 5.25f;
 				rect(ImVec2(g_pos.x, g_pos.y + sizes::rects::g_header.y), sizes::rects::g_subtitle, colors::rects::g_subtitle);
 				text(MENU_NAME, ImVec2(g_pos.x + 7.f, g_pos.y + sizes::rects::g_header.y + 5.f), colors::texts::g_subtitle, g_renderer->m_subtitleFont);
@@ -53,12 +61,15 @@ namespace gui {
 			void option(menu::options::types::abstractOption* opt, int count, bool selected) {
 				auto offset = 7.f;
 				rect(ImVec2(g_pos.x, g_pos.y + sizes::rects::g_header.y + sizes::rects::g_subtitle.y + (sizes::rects::g_option.y * count)), sizes::rects::g_option, colors::rects::g_option);
-				if (count == CURRENT_OPTION)
+				if (selected)
 					rect(ImVec2(g_pos.x, g_pos.y + sizes::rects::g_header.y + sizes::rects::g_subtitle.y + (sizes::rects::g_option.y * count)), sizes::rects::g_option, colors::rects::g_optionSelected);
 				text(opt->m_name, ImVec2(g_pos.x + offset, g_pos.y + 9.f + sizes::rects::g_header.y + sizes::rects::g_subtitle.y + (sizes::rects::g_option.y * count)), selected ? colors::texts::g_optionSelected : colors::texts::g_option, g_renderer->m_optionFont);
 				switch (opt->m_type) {
-				case menu::options::types::eOptionTypes::SubOption: {
-
+				case menu::options::types::eOptionTypes::SubmenuOption: {
+					text(opt->m_right, ImVec2(g_pos.x + ((sizes::rects::g_option.x - sizes::getTextSize(opt->m_right).x) - 12.f) + 1.f, g_pos.y + 9.3f + sizes::rects::g_header.y + sizes::rects::g_subtitle.y + (sizes::rects::g_option.y * count)) , selected ? colors::texts::g_optionSelected : colors::texts::g_option, g_renderer->m_mediumIconFont);
+				} break;
+				default: {
+					text(opt->m_right, ImVec2(g_pos.x + ((sizes::rects::g_option.x - sizes::getTextSize(opt->m_right).x) - 5.f) + 1.f, g_pos.y + 9.f + sizes::rects::g_header.y + sizes::rects::g_subtitle.y + (sizes::rects::g_option.y * count)) , selected ? colors::texts::g_optionSelected : colors::texts::g_option, g_renderer->m_optionFont);
 				} break;
 				}
 			}
@@ -66,8 +77,7 @@ namespace gui {
 				auto& menu = g_menus.top();
 				menu.clearOptions();
 				menu.executeOptionAdding();
-				CURRENT_OPTION = menu.m_currentOption + 1;
-				if (OPTION_COUNT != 0) {
+				if (OPTION_COUNT != 0) {	
 					size_t startPoint{}, endPoint{ OPTION_COUNT > MAX_VISIBLE_OPTIONS ? MAX_VISIBLE_OPTIONS : OPTION_COUNT };
 					if (OPTION_COUNT > MAX_VISIBLE_OPTIONS && CURRENT_OPTION >= MAX_VISIBLE_OPTIONS - 1)
 						startPoint = CURRENT_OPTION - MAX_VISIBLE_OPTIONS, endPoint = CURRENT_OPTION;
@@ -80,12 +90,11 @@ namespace gui {
 				auto centerArrowOffset = (sizes::rects::g_footer.y / 2.f) - 10.f;
 				auto count = MAX_VISIBLE_OPTIONS < OPTION_COUNT ? MAX_VISIBLE_OPTIONS : OPTION_COUNT;
 				rect(ImVec2(g_pos.x, g_pos.y + sizes::rects::g_header.y + sizes::rects::g_subtitle.y + (sizes::rects::g_option.y * count)), sizes::rects::g_footer, colors::rects::g_footer);
-				text(CURRENT_OPTION == OPTION_COUNT ? "u" : (CURRENT_OPTION == 1 ? "" : "u"), ImVec2(g_pos.x + arrowOffset, g_pos.y + (((CURRENT_OPTION != 1) && (CURRENT_OPTION != OPTION_COUNT)) ? 3.f : centerArrowOffset) + sizes::rects::g_header.y + sizes::rects::g_subtitle.y + (sizes::rects::g_option.y * count)), colors::texts::g_footer, g_renderer->m_mediumIconFont);
-				text(CURRENT_OPTION == 1 ? "d" : (CURRENT_OPTION == OPTION_COUNT ? "" : "d"), ImVec2(g_pos.x + arrowOffset, g_pos.y + (((CURRENT_OPTION != 1) && (CURRENT_OPTION != OPTION_COUNT)) ? 12.5f : centerArrowOffset) + sizes::rects::g_header.y + sizes::rects::g_subtitle.y + (sizes::rects::g_option.y * count)), colors::texts::g_footer, g_renderer->m_mediumIconFont);
+				text(CURRENT_OPTION + 1 == OPTION_COUNT ? "u" : (CURRENT_OPTION + 1 == 1 ? "" : "u"), ImVec2(g_pos.x + arrowOffset, g_pos.y + (((CURRENT_OPTION + 1 != 1) && (CURRENT_OPTION + 1 != OPTION_COUNT)) ? 3.f : centerArrowOffset) + sizes::rects::g_header.y + sizes::rects::g_subtitle.y + (sizes::rects::g_option.y * count)), colors::texts::g_footer, g_renderer->m_mediumIconFont);
+				text(CURRENT_OPTION + 1 == 1 ? "d" : (CURRENT_OPTION + 1 == OPTION_COUNT ? "" : "d"), ImVec2(g_pos.x + arrowOffset, g_pos.y + (((CURRENT_OPTION + 1 != 1) && (CURRENT_OPTION + 1 != OPTION_COUNT)) ? 12.5f : centerArrowOffset) + sizes::rects::g_header.y + sizes::rects::g_subtitle.y + (sizes::rects::g_option.y * count)), colors::texts::g_footer, g_renderer->m_mediumIconFont);
 			}
 			void description() {
-				auto opt = GET_OPT(CURRENT_OPTION);
-				if (!opt->m_description.empty()) {
+				if (auto opt = GET_OPT(CURRENT_OPTION); opt && !opt->m_description.empty()) {
 					const auto iconOffset = 7.f;
 					const auto iconOffsetFromRight = 8.f;
 					const auto textOffset = iconOffset + 24.f;
@@ -189,7 +198,7 @@ namespace gui {
 			if (g_isOpen) {
 				if (keys::pressed::g_enter) {
 					soundQueue(sounds::g_enter);
-					GET_OPT(CURRENT_OPTION)->callAction();
+					CURRENT_MENU.action(menu::types::eActionType::Enter);
 				}
 				if (keys::pressed::g_back) {
 					soundQueue(sounds::g_back);
@@ -197,23 +206,19 @@ namespace gui {
 				}
 				if (keys::pressed::g_up) {
 					soundQueue(sounds::g_up);
-					CURRENT_OPTION--;
-					if (CURRENT_OPTION < 1)
-						CURRENT_OPTION = OPTION_COUNT;
+					CURRENT_MENU.action(menu::types::eActionType::Up);
 				}
 				if (keys::pressed::g_down) {
 					soundQueue(sounds::g_down);
-					CURRENT_OPTION++;
-					if (CURRENT_OPTION > OPTION_COUNT)
-						CURRENT_OPTION = 1;
+					CURRENT_MENU.action(menu::types::eActionType::Down);
 				}
 				if (keys::pressed::g_left) {
 					soundQueue(sounds::g_left);
-
+					CURRENT_MENU.action(menu::types::eActionType::Left);
 				}
 				if (keys::pressed::g_right) {
 					soundQueue(sounds::g_right);
-
+					CURRENT_MENU.action(menu::types::eActionType::Right);
 				}
 			}
 		}

@@ -1,13 +1,11 @@
-#include "home.h"
+#include "script/home/home.h"
+#include "script/self/self.h"
+#include "script/settings/settings.h"
 
 namespace script {
-	home::home() : submenu("Home") {
-		setAction(&home::call);
-	}
+	home::home() : submenu("Home", &home::call) {}
 	void home::call(submenu& sub) {
-		sub.add(regularOption("Test"));
-		sub.add(regularOption("Unload", "Hello World", [=] {
-			g_running = false;
-		}));
+		sub.add(submenuOption("Self", self()));
+		sub.add(submenuOption("Settings", settings()));
 	}
 }

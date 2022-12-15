@@ -2,6 +2,7 @@
 #include "pch/pch.h"
 #include "gui/submenu_types/submenu.h"
 #include "gui/option_types/regular_option.h"
+#include "gui/option_types/submenu_option.h"
 
 namespace script {
 	using namespace gui::menu::types;

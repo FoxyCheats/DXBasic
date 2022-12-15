@@ -164,6 +164,9 @@
     <ClInclude Include="src\gui\submenu_types\submenu.h" />
     <ClInclude Include="src\gui\option_types\regular_option.h" />
     <ClInclude Include="src\script\home\home.h" />
+    <ClInclude Include="src\gui\option_types\submenu_option.h" />
+    <ClInclude Include="src\script\settings\settings.h" />
+    <ClInclude Include="src\gui\option_types\number_options.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\config\config.cpp">
@@ -216,6 +219,7 @@
       <Filter>script\self</Filter>
     </ClCompile>
     <ClCompile Include="src\script\home\home.cpp" />
+    <ClCompile Include="src\script\settings\settings.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Masm Include="src\stack\call_spoof.asm">

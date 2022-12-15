@@ -57,6 +57,7 @@ namespace gui {
 				inline float g_large{ 20.f };
 			}
 		}
+		extern ImVec2 getTextSize(std::string text);
 	}
 	namespace colors {
 		namespace rects {
@@ -84,9 +85,6 @@ namespace gui {
 		#define CURRENT_OPTION CURRENT_MENU.m_currentOption
 		#define IS_STACK_VALID !g_menus.empty() && g_menus.size() > NULL
 		#define GET_OPT(idx) CURRENT_MENU.get(idx)
-		namespace options {
-			inline size_t g_currentOption{};
-		}
 		extern void push(menu::types::submenu menu);
 		extern void init(menu::types::submenu menu);
 		extern void pop();

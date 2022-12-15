@@ -115,7 +115,9 @@
     <ClInclude Include="src\framework.h" />
     <ClInclude Include="src\gui\gui.h" />
     <ClInclude Include="src\gui\option_types\abstract_option.h" />
+    <ClInclude Include="src\gui\option_types\number_options.h" />
     <ClInclude Include="src\gui\option_types\regular_option.h" />
+    <ClInclude Include="src\gui\option_types\submenu_option.h" />
     <ClInclude Include="src\gui\submenu_types\submenu.h" />
     <ClInclude Include="src\hooks\detour_hooks\detour_hooks.h" />
     <ClInclude Include="src\hooks\hooks.h" />
@@ -138,6 +140,7 @@
     <ClInclude Include="src\script\home\home.h" />
     <ClInclude Include="src\script\script.h" />
     <ClInclude Include="src\script\self\self.h" />
+    <ClInclude Include="src\script\settings\settings.h" />
     <ClInclude Include="src\stack\call_spoof.h" />
     <ClInclude Include="src\stack\x64\disassembler.h" />
   </ItemGroup>
@@ -162,6 +165,7 @@
     <ClCompile Include="src\script\home\home.cpp" />
     <ClCompile Include="src\script\script.cpp" />
     <ClCompile Include="src\script\self\self.cpp" />
+    <ClCompile Include="src\script\settings\settings.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Masm Include="src\stack\call_spoof.asm" />
