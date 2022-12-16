@@ -11,9 +11,12 @@ namespace features {
 		namespace movement {
 			extern void superRun();
 			extern void superJump();
+			extern void run();
+			extern void swim();
 		}
 		extern void godMode();
 		extern void neverWanted();
+		extern void tick();
 	}
 	extern void tick();
 }

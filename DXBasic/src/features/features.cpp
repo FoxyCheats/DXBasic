@@ -21,6 +21,18 @@ namespace features {
 						TASK::TASK_JUMP(util::ped::g_entityHandle, true, true, true);
 				}
 			}
+			void run() {
+				auto& cfg = s_m_cfg["run"];
+				if (cfg.is_null())
+					g_config.writeDummy();
+				util::player::g_handle->m_run_speed = cfg["toggle"].get<bool>() ? cfg["value"].get<float>() : 1.f;
+			}
+			void swim() {
+				auto& cfg = s_m_cfg["swim"];
+				if (cfg.is_null())
+					g_config.writeDummy();
+				util::player::g_handle->m_swim_speed = cfg["toggle"].get<bool>() ? cfg["value"].get<float>() : 1.f;
+			}
 		}
 		void godMode() {
 			*reinterpret_cast<uint8_t*>(uint64_t(util::ped::g_handle) + (offsetof(CPed, m_damage_bits) + 0x1)) = s_cfg["godMode"].get<bool>();
@@ -31,11 +43,18 @@ namespace features {
 			if (s_cfg["neverWanted"].get<bool>())
 				util::player::g_handle->m_wanted_level = 0;
 		}
+		void tick() {
+			movement::superRun();
+			movement::superJump();
+			movement::run();
+			movement::swim();
+			godMode();
+			neverWanted();
+		}
 	}
 	void tick() {
 		while (true) {
-			self::godMode();
-			self::neverWanted();
+			self::tick();
 			fibers::fiber::cur()->wait();
 		}
 	}
