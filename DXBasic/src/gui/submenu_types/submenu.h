@@ -2,6 +2,7 @@
 #include "pch/pch.h"
 #include "gui/option_types/abstract_option.h"
 #include <exceptions/exception_handler.h>
+#include "config/config.h"
 
 namespace gui::menu::types {
 	using namespace options::types;
@@ -24,7 +25,7 @@ namespace gui::menu::types {
 		options::types::abstractOption* get(size_t idx) {
 			if (idx > m_options.size())
 				return nullptr;
-			return m_options[idx].get();
+			return m_options.size() && !m_options.empty() && m_options[idx] ? m_options[idx].get() : nullptr;
 		}
 	public:
 		void callAction() {

@@ -8,9 +8,9 @@
 namespace script {
 	using namespace gui::menu::types;
 	using namespace gui::menu::options::types;
-	class self : public submenu {
+	class movement : public submenu {
 	public:
-		self();
+		movement();
 	public:
 		static void call(submenu& sub);
 	};

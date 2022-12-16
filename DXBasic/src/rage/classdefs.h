@@ -77,7 +77,7 @@ class CNonPhysicalPlayerData;
 class CBaseModelInfo;
 class CNavigation;
 class CHandlingData;
-class CAutomobile;
+class CVehicle;
 class AimingInfo;
 class CItemInfo;
 class CWeaponInfo;

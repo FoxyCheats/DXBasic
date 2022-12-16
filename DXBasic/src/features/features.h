@@ -8,6 +8,10 @@
 
 namespace features {
 	namespace self {
+		namespace movement {
+			extern void superRun();
+			extern void superJump();
+		}
 		extern void godMode();
 		extern void neverWanted();
 	}

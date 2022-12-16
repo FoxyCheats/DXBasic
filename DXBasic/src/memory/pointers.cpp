@@ -18,6 +18,15 @@ void pointers::scan() {
 		m_getNativeHandler = ptr.add(0x18).rip().as<decltype(m_getNativeHandler)>();
 		printSig(m_getNativeHandler)
 	});
+	mainBatch.add("PTH", "48 8D 1C F8 48 8B CB", [=](mem ptr) {
+		m_pointerToHandle = ptr.add(8).rip().as<decltype(m_pointerToHandle)>();
+		printSig(m_pointerToHandle)
+	});
+	mainBatch.add("HTP", "83 F9 FF 74 31 4C 8B 0D", [=](mem ptr) {
+		m_handleToPointer = ptr.as<decltype(m_handleToPointer)>();
+		printSig(m_handleToPointer)
+	});
+
 	mainBatch.add("GTS", "F5 8B FD 73", [=](mem ptr) {
 		m_gtaThreads = ptr.add(8).rip().as<decltype(m_gtaThreads)>();
 		printSig(m_gtaThreads)

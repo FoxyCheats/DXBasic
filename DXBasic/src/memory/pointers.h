@@ -47,10 +47,13 @@ namespace rage {
 	};
 	class scrNativeCallContext;
 	using scrNativeHandler = fnptr<void(scrNativeCallContext*)>;
+	class CEntity;
 }
 namespace funcTypes {
 	using scriptVirtualMachineT = int64_t(*)(void* stack, int64_t** globals, rage::scrProgram* program, rage::scrThreadContext* threadContext);
 	using getNativeHandlerT = rage::scrNativeHandler(*)(rage::scrNativeRegistrationTable* _this, uint64_t translatedHash);
+	using pointerToHandleT = int32_t(*)(rage::CEntity* ptr);
+	using handleToPointerT = rage::CEntity*(*)(int32_t handle);
 }
 class pointers {
 public:
@@ -58,6 +61,8 @@ public:
 public:
 	funcTypes::scriptVirtualMachineT m_scriptVirtualMachine{};
 	funcTypes::getNativeHandlerT m_getNativeHandler{};
+	funcTypes::pointerToHandleT m_pointerToHandle{};
+	funcTypes::handleToPointerT m_handleToPointer{};
 public:
 	CNetworkPlayerMgr** m_networkPlayerMgr{};
 	CPedFactory** m_pedFactory{};

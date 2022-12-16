@@ -6,7 +6,7 @@ namespace gui::menu::options::types {
 		InvalidOption = -1,
 		RegularOption,
 		SubmenuOption,
-		BoolOption,
+		BooleanOption,
 		NumberOption,
 	};
 	enum class eActionType : uint8_t {
@@ -18,7 +18,9 @@ namespace gui::menu::options::types {
 	};
 	class abstractOption {
 	public:
-		abstractOption(std::string name, std::string right, std::string description, eOptionTypes type) : m_name{ name }, m_right{ right }, m_description{ description }, m_type{ type } {}
+		abstractOption(std::string name, std::string right, std::string description, eOptionTypes type) :
+			m_name{ name }, m_right{ right }, m_description{ description }, m_type{ type }
+		{}
 	public:
 		virtual ~abstractOption() = default;
 		virtual void action(eActionType type) = 0;

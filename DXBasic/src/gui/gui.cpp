@@ -1,4 +1,6 @@
-#include "gui.h"
+#include "gui/gui.h"
+#include "gui/option_types/boolean_option.h"
+#include "gui/option_types/number_option.h"
 #include "fiber/fiber.h"
 #include "fiber/manager.h"
 #include "fiber/queue.h"
@@ -67,6 +69,12 @@ namespace gui {
 				switch (opt->m_type) {
 				case menu::options::types::eOptionTypes::SubmenuOption: {
 					text(opt->m_right, ImVec2(g_pos.x + ((sizes::rects::g_option.x - sizes::getTextSize(opt->m_right).x) - 12.f) + 1.f, g_pos.y + 9.3f + sizes::rects::g_header.y + sizes::rects::g_subtitle.y + (sizes::rects::g_option.y * count)) , selected ? colors::texts::g_optionSelected : colors::texts::g_option, g_renderer->m_mediumIconFont);
+				} break;
+				case menu::options::types::eOptionTypes::BooleanOption: {
+					text(opt->m_right, ImVec2(g_pos.x + ((sizes::rects::g_option.x - sizes::getTextSize(opt->m_right).x) - 12.f), g_pos.y + 9.3f + sizes::rects::g_header.y + sizes::rects::g_subtitle.y + (sizes::rects::g_option.y * count)) , selected ? colors::texts::g_optionSelected : colors::texts::g_option, g_renderer->m_mediumIconFont);
+				} break;
+				case menu::options::types::eOptionTypes::NumberOption: {
+					text(opt->m_right, ImVec2(g_pos.x + ((sizes::rects::g_option.x - sizes::getTextSize(opt->m_right).x) - 12.f), g_pos.y + 9.3f + sizes::rects::g_header.y + sizes::rects::g_subtitle.y + (sizes::rects::g_option.y * count)) , selected ? colors::texts::g_optionSelected : colors::texts::g_option, g_renderer->m_mediumIconFont);
 				} break;
 				default: {
 					text(opt->m_right, ImVec2(g_pos.x + ((sizes::rects::g_option.x - sizes::getTextSize(opt->m_right).x) - 5.f) + 1.f, g_pos.y + 9.f + sizes::rects::g_header.y + sizes::rects::g_subtitle.y + (sizes::rects::g_option.y * count)) , selected ? colors::texts::g_optionSelected : colors::texts::g_option, g_renderer->m_optionFont);

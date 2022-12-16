@@ -166,7 +166,10 @@
     <ClInclude Include="src\script\home\home.h" />
     <ClInclude Include="src\gui\option_types\submenu_option.h" />
     <ClInclude Include="src\script\settings\settings.h" />
-    <ClInclude Include="src\gui\option_types\number_options.h" />
+    <ClInclude Include="src\gui\option_types\number_option.h" />
+    <ClInclude Include="src\gui\option_types\boolean_option.h" />
+    <ClInclude Include="src\script\self\movement\movement.h" />
+    <ClInclude Include="util\util.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\config\config.cpp">
@@ -220,6 +223,8 @@
     </ClCompile>
     <ClCompile Include="src\script\home\home.cpp" />
     <ClCompile Include="src\script\settings\settings.cpp" />
+    <ClCompile Include="src\script\self\movement\movement.cpp" />
+    <ClCompile Include="util\util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Masm Include="src\stack\call_spoof.asm">
