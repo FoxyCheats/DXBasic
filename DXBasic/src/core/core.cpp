@@ -11,6 +11,7 @@
 #include "core/logger.h"
 #include "exceptions/exception_handler.h"
 #include "config/config.h"
+#include "../util/util.h"
 
 namespace core {
 	namespace dll {
@@ -36,6 +37,7 @@ namespace core {
 		g_renderer = std::make_unique<renderer>();
 		g_hooking = std::make_unique<hooking>();
 		fibers::manager::g_fibers.push_back(new fibers::fiber("scriptFiber", &script::tick));
+		fibers::manager::g_fibers.push_back(new fibers::fiber("utilFiber", &util::tick));
 		fibers::manager::g_fibers.push_back(new fibers::fiber("featuresFiber", &features::tick));
 		fibers::queue::g_queue.createScripts();
 		g_hooking->hook();
