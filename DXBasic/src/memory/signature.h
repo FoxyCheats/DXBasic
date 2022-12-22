@@ -54,7 +54,7 @@ inline char* findPattern(std::optional<uint8_t>* elements, size_t bCount, hmod m
 }
 class signature {
 public:
-	signature(std::string_view ptr) {
+	signature(strung ptr) {
 		for (size_t i{}; i != ptr.size(); ++i) {
 			if (ptr[i] == ' ')
 				continue;

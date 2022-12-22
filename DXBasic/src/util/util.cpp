@@ -112,8 +112,8 @@ namespace util {
 	}
 	void tick() {
 		while (true) {
-			player::tick();
 			ped::tick();
+			player::tick();
 			vehicle::tick();
 			fibers::fiber::cur()->wait();
 		}

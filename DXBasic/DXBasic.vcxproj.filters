@@ -64,6 +64,24 @@
     <Filter Include="stack\x64">
       <UniqueIdentifier>{CC88436D-38F3-F7E3-8131-A989EDDAD538}</UniqueIdentifier>
     </Filter>
+    <Filter Include="gui\submenu_types">
+      <UniqueIdentifier>{1a91f083-9178-4e08-ac4c-c33948bc58cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\option_types">
+      <UniqueIdentifier>{88f3ee61-6bac-411a-9146-2977c412ead2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="script\self\movement">
+      <UniqueIdentifier>{d097b68e-bfa4-4cac-b6c3-45bf12163e14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="script\home">
+      <UniqueIdentifier>{cc2bbf8f-7b61-49a2-8da3-385df8dd296d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="script\settings">
+      <UniqueIdentifier>{ec807aa3-8d85-4b0a-b3f9-cf259eb69847}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="util">
+      <UniqueIdentifier>{28a115d7-340b-4c92-9060-510e2a49a370}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\config\config.h">
@@ -160,16 +178,43 @@
     <ClInclude Include="src\stack\x64\disassembler.h">
       <Filter>stack\x64</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\option_types\abstract_option.h" />
-    <ClInclude Include="src\gui\submenu_types\submenu.h" />
-    <ClInclude Include="src\gui\option_types\regular_option.h" />
-    <ClInclude Include="src\script\home\home.h" />
-    <ClInclude Include="src\gui\option_types\submenu_option.h" />
-    <ClInclude Include="src\script\settings\settings.h" />
-    <ClInclude Include="src\gui\option_types\number_option.h" />
-    <ClInclude Include="src\gui\option_types\boolean_option.h" />
-    <ClInclude Include="src\script\self\movement\movement.h" />
-    <ClInclude Include="util\util.h" />
+    <ClInclude Include="src\gui\submenu_types\submenu.h">
+      <Filter>gui\submenu_types</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\option_types\number_option.h">
+      <Filter>gui\option_types</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\option_types\regular_option.h">
+      <Filter>gui\option_types</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\option_types\submenu_option.h">
+      <Filter>gui\option_types</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\option_types\boolean_option.h">
+      <Filter>gui\option_types</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\option_types\abstract_option.h">
+      <Filter>gui\option_types</Filter>
+    </ClInclude>
+    <ClInclude Include="src\script\self\movement\movement.h">
+      <Filter>script\self\movement</Filter>
+    </ClInclude>
+    <ClInclude Include="src\script\home\home.h">
+      <Filter>script\home</Filter>
+    </ClInclude>
+    <ClInclude Include="src\script\settings\settings.h">
+      <Filter>script\settings</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\globals.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\util.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\timer.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\translation\translation.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\config\config.cpp">
@@ -221,10 +266,19 @@
     <ClCompile Include="src\script\self\self.cpp">
       <Filter>script\self</Filter>
     </ClCompile>
-    <ClCompile Include="src\script\home\home.cpp" />
-    <ClCompile Include="src\script\settings\settings.cpp" />
-    <ClCompile Include="src\script\self\movement\movement.cpp" />
-    <ClCompile Include="util\util.cpp" />
+    <ClCompile Include="src\script\self\movement\movement.cpp">
+      <Filter>script\self\movement</Filter>
+    </ClCompile>
+    <ClCompile Include="src\script\home\home.cpp">
+      <Filter>script\home</Filter>
+    </ClCompile>
+    <ClCompile Include="src\script\settings\settings.cpp">
+      <Filter>script\settings</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\util.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\translation\translation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Masm Include="src\stack\call_spoof.asm">

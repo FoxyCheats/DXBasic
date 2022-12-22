@@ -11,7 +11,7 @@
 #include "core/logger.h"
 #include "exceptions/exception_handler.h"
 #include "config/config.h"
-#include "../util/util.h"
+#include "util/util.h"
 
 namespace core {
 	namespace dll {

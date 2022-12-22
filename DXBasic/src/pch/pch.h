@@ -22,6 +22,10 @@ namespace defines {
 }
 using namespace defines;
 
+using strung = std::string;
+
+namespace fs = std::filesystem;
+
 inline constexpr char tolower(char c) {
 	return (c >= 'A' && c <= 'Z') ? c + ('a' - 'A') : c;
 }

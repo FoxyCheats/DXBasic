@@ -6,18 +6,6 @@ namespace fs = std::filesystem;
 inline nlohmann::json g_dummyJson =
 R"({
 	"self" : {
-		"movement" : {
-			"superRun" : false,
-			"superJump" : false,
-			"run" : {
-				"value" : 2.00,
-				"toggle" : false,
-			},
-			"swim" : {
-				"value" : 2.00,
-				"toggle" : false,
-			}
-		}
 		"godMode" : false,
 		"neverWanted" : false
 	}

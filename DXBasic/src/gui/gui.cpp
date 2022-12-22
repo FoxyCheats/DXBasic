@@ -8,6 +8,7 @@
 #include "rage/classes.h"
 #include "natives/natives.h"
 #include "renderer/renderer.h"
+#include "util/timer.h"
 
 namespace gui {
 	namespace keys::pressed {
@@ -22,7 +23,7 @@ namespace gui {
 		}
 	}
 	namespace sizes {
-		ImVec2 getTextSize(std::string text) {
+		ImVec2 getTextSize(strung text) {
 			return ImGui::CalcTextSize(text.c_str(), NULL, false, rects::g_width);
 		}
 	}
@@ -39,7 +40,7 @@ namespace gui {
 			push(menu);
 		}
 		void pop() {
-			if (g_menus.size() > 1) 
+			if (g_menus.size() > 1 && g_menus.top().m_id != "Home"_joaat)
 				g_menus.pop();
 			else
 				g_isOpen = false;
@@ -68,16 +69,16 @@ namespace gui {
 				text(opt->m_name, ImVec2(g_pos.x + offset, g_pos.y + 9.f + sizes::rects::g_header.y + sizes::rects::g_subtitle.y + (sizes::rects::g_option.y * count)), selected ? colors::texts::g_optionSelected : colors::texts::g_option, g_renderer->m_optionFont);
 				switch (opt->m_type) {
 				case menu::options::types::eOptionTypes::SubmenuOption: {
-					text(opt->m_right, ImVec2(g_pos.x + ((sizes::rects::g_option.x - sizes::getTextSize(opt->m_right).x) - 12.f) + 1.f, g_pos.y + 9.3f + sizes::rects::g_header.y + sizes::rects::g_subtitle.y + (sizes::rects::g_option.y * count)) , selected ? colors::texts::g_optionSelected : colors::texts::g_option, g_renderer->m_mediumIconFont);
+					text(opt->getRightText(), ImVec2(g_pos.x + ((sizes::rects::g_option.x - sizes::getTextSize(opt->getRightText()).x) - 12.f) + 1.f, g_pos.y + 9.3f + sizes::rects::g_header.y + sizes::rects::g_subtitle.y + (sizes::rects::g_option.y * count)) , selected ? colors::texts::g_optionSelected : colors::texts::g_option, g_renderer->m_mediumIconFont);
 				} break;
 				case menu::options::types::eOptionTypes::BooleanOption: {
-					text(opt->m_right, ImVec2(g_pos.x + ((sizes::rects::g_option.x - sizes::getTextSize(opt->m_right).x) - 12.f), g_pos.y + 9.3f + sizes::rects::g_header.y + sizes::rects::g_subtitle.y + (sizes::rects::g_option.y * count)) , selected ? colors::texts::g_optionSelected : colors::texts::g_option, g_renderer->m_mediumIconFont);
+					text(opt->getRightText(), ImVec2(g_pos.x + ((sizes::rects::g_option.x - sizes::getTextSize(opt->getRightText()).x) - 12.f), g_pos.y + 9.3f + sizes::rects::g_header.y + sizes::rects::g_subtitle.y + (sizes::rects::g_option.y * count)) , selected ? colors::texts::g_optionSelected : colors::texts::g_option, g_renderer->m_mediumIconFont);
 				} break;
 				case menu::options::types::eOptionTypes::NumberOption: {
-					text(opt->m_right, ImVec2(g_pos.x + ((sizes::rects::g_option.x - sizes::getTextSize(opt->m_right).x) - 12.f), g_pos.y + 9.3f + sizes::rects::g_header.y + sizes::rects::g_subtitle.y + (sizes::rects::g_option.y * count)) , selected ? colors::texts::g_optionSelected : colors::texts::g_option, g_renderer->m_mediumIconFont);
+					text(opt->getRightText(), ImVec2(g_pos.x + ((sizes::rects::g_option.x - sizes::getTextSize(opt->getRightText()).x) - 12.f), g_pos.y + 9.3f + sizes::rects::g_header.y + sizes::rects::g_subtitle.y + (sizes::rects::g_option.y * count)) , selected ? colors::texts::g_optionSelected : colors::texts::g_option, g_renderer->m_mediumIconFont);
 				} break;
 				default: {
-					text(opt->m_right, ImVec2(g_pos.x + ((sizes::rects::g_option.x - sizes::getTextSize(opt->m_right).x) - 5.f) + 1.f, g_pos.y + 9.f + sizes::rects::g_header.y + sizes::rects::g_subtitle.y + (sizes::rects::g_option.y * count)) , selected ? colors::texts::g_optionSelected : colors::texts::g_option, g_renderer->m_optionFont);
+					text(opt->getRightText(), ImVec2(g_pos.x + ((sizes::rects::g_option.x - sizes::getTextSize(opt->getRightText()).x) - 5.f) + 1.f, g_pos.y + 9.f + sizes::rects::g_header.y + sizes::rects::g_subtitle.y + (sizes::rects::g_option.y * count)) , selected ? colors::texts::g_optionSelected : colors::texts::g_option, g_renderer->m_optionFont);
 				} break;
 				}
 			}
@@ -138,7 +139,7 @@ namespace gui {
 			const ImRect rect = math::getRect(pos, size);
 			drawList->AddImage(resource, rect.Min, rect.Max, ImVec2(0, 0), ImVec2(1, 1), color);
 		}
-		void text(std::string text, ImVec2 pos, ImU32 color, ImFont* font, ImDrawList* drawList) {
+		void text(strung text, ImVec2 pos, ImU32 color, ImFont* font, ImDrawList* drawList) {
 			ImGui::PushFont(font);
 			drawList->AddText(pos, color, text.c_str());
 			ImGui::PopFont();

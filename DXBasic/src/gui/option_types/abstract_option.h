@@ -18,16 +18,16 @@ namespace gui::menu::options::types {
 	};
 	class abstractOption {
 	public:
-		abstractOption(std::string name, std::string right, std::string description, eOptionTypes type) :
-			m_name{ name }, m_right{ right }, m_description{ description }, m_type{ type }
+		abstractOption(strung name, strung description, eOptionTypes type) :
+			m_name{ name }, m_description{ description }, m_type{ type }
 		{}
 	public:
-		virtual ~abstractOption() = default;
-		virtual void action(eActionType type) = 0;
+		virtual ~abstractOption() {};
+		virtual void action(eActionType type) {};
+		virtual strung getRightText() { return strung(); } //Because bool options and other shit dies without a function for it. ffs
 	public:
-		std::string m_name{};
-		std::string m_right{};
-		std::string m_description{};
+		strung m_name{};
+		strung m_description{};
 		eOptionTypes m_type{};
 	};
 }

@@ -3,7 +3,7 @@
 #include "core/logger.h"
 
 namespace modules {
-	inline std::map<std::string, std::pair<uint64_t, uint64_t>> g_moduleMap{};
+	inline std::map<strung, std::pair<uint64_t, uint64_t>> g_moduleMap{};
 	inline decltype(g_moduleMap) getAllModuleInfos() {
 		decltype(g_moduleMap) map{};
 		HMODULE modules[1024]{};
@@ -14,7 +14,7 @@ namespace modules {
 				//Get the full path to the module's file.
 				char modNameCharArray[MAX_PATH];
 				if (K32GetModuleFileNameExA(process, modules[i], modNameCharArray, MAX_PATH)) {
-					std::string modName(modNameCharArray);
+					strung modName(modNameCharArray);
 					MODULEINFO info{};
 					if (K32GetModuleInformation(process, modules[i], &info, sizeof(MODULEINFO))) {
 						map.emplace(modName, std::make_pair(uintptr_t(info.lpBaseOfDll), uintptr_t(info.SizeOfImage)));
@@ -121,12 +121,12 @@ namespace exceptions {
 		{ 0xC015000FL, "STATUS_SXS_EARLY_DEACTIVATION" },
 		{ 0xC0150010L, "STATUS_SXS_INVALID_DEACTIVATION" },
 	};
-	inline std::map<ULONG_PTR, std::string> g_exceptionErrorReasons = {
+	inline std::map<ULONG_PTR, strung> g_exceptionErrorReasons = {
 		{ 0, "attempt to read invalid address" },
 		{ 1, "attempt to write to invalid address" },
 		{ 8, "data exception prevention (DEP)" },
 	};
-	inline std::string getExceptionType(ULONG_PTR type) {
+	inline strung getExceptionType(ULONG_PTR type) {
 		if (auto t = g_exceptionErrorReasons.find(type); t != g_exceptionErrorReasons.end()) {
 			return t->second;
 		}
@@ -157,9 +157,9 @@ namespace exceptions {
 		}
 		if (attemptStackRecovery(exceptionInfo))
 			return EXCEPTION_CONTINUE_EXECUTION;
-		logNow(exception, "Failed stack recovery, re-attempting exception search for an valid point in the stack...")
-			logNow(exception, "Dumping registers...")
-			logNow(registers, "RAX: 0x{:X} || RSI: 0x{:X}", ctx->Rax, ctx->Rsi);
+		logNow(exception, "Failed stack recovery, re-attempting exception search for an valid point in the stack...");
+		logNow(exception, "Dumping registers...");
+		logNow(registers, "RAX: 0x{:X} || RSI: 0x{:X}", ctx->Rax, ctx->Rsi);
 		logNow(registers, "RBX: 0x{:X} || RDI: 0x{:X}", ctx->Rbx, ctx->Rdi);
 		logNow(registers, "RCX: 0x{:X} || RBP: 0x{:X}", ctx->Rcx, ctx->Rbp);
 		logNow(registers, "RDX: 0x{:X} || RSP: 0x{:X}", ctx->Rdx, ctx->Rsp);
@@ -167,8 +167,8 @@ namespace exceptions {
 		logNow(registers, "R10: 0x{:X} || R11: 0x{:X}", ctx->R10, ctx->R11);
 		logNow(registers, "R12: 0x{:X} || R13: 0x{:X}", ctx->R12, ctx->R13);
 		logNow(registers, "R14: 0x{:X} || R15: 0x{:X}", ctx->R14, ctx->R15);
-		logNow(exception, "Showing callstack...")
-			sw.ShowCallstack(GetCurrentThread(), ctx);
+		logNow(exception, "Showing callstack...");
+		sw.ShowCallstack(GetCurrentThread(), ctx);
 		return EXCEPTION_CONTINUE_SEARCH;
 	}
 	inline bool onExceptionCallback_TryExcept(PEXCEPTION_POINTERS exceptionInfo) {

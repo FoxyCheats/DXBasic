@@ -12,10 +12,10 @@ namespace gui::menu::types {
 	}
 	class submenu {
 	public:
-		submenu(std::string name, uint32_t id, std::function<void(submenu&)> action) : m_name(name), m_id(id), m_action(std::move(action)) {}
-		submenu(std::string name, uint32_t id) : submenu(name, id, nullptr) {}
-		submenu(std::string name, std::function<void(submenu&)> action) : submenu(name, name.empty() ? NULL : joaat(name), action) {}
-		submenu(std::string name) : submenu(name, nullptr) {}
+		submenu(strung name, uint32_t id, std::function<void(submenu&)> action) : m_name(name), m_id(id), m_action(std::move(action)) {}
+		submenu(strung name, uint32_t id) : submenu(name, id, nullptr) {}
+		submenu(strung name, std::function<void(submenu&)> action) : submenu(name, name.empty() ? NULL : joaat(name), action) {}
+		submenu(strung name) : submenu(name, nullptr) {}
 		submenu() : submenu("") {}
 	public:
 		template <typename type>
@@ -44,18 +44,14 @@ namespace gui::menu::types {
 		}
 	public:
 		void executeOptionAdding() {
-			std::thread thr([=] {
-				__try {
-					if (const auto& act = m_action; act) {
-						act(static_cast<submenu&>(*this));
-					}
+			__try {
+				if (const auto& act = m_action; act) {
+					act(static_cast<submenu&>(*this));
 				}
-				__except (exceptionHandler(GetExceptionInformation()), EXCEPTION_EXECUTE_HANDLER) {}
-				if (m_currentOption >= m_options.size())
-					m_currentOption = 0;
-			});
-			if (thr.joinable())
-				thr.join();
+			}
+			__except (exceptionHandler(GetExceptionInformation()), EXCEPTION_EXECUTE_HANDLER) {}
+			if (m_currentOption >= m_options.size())
+				m_currentOption = 0;
 		}
 		void clearOptions() {
 			m_options.clear();
@@ -84,7 +80,7 @@ namespace gui::menu::types {
 		int m_maxOptions{};
 		size_t m_currentOption{};
 	public:
-		std::string m_name{};
+		strung m_name{};
 		uint32_t m_id{};
 		std::vector<std::shared_ptr<options::types::abstractOption>> m_options{};
 		std::function<void(submenu&)> m_action{};

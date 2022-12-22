@@ -2,7 +2,7 @@
 #include "core/logger.h"
 
 void stackWalker::OnOutput(LPCSTR szText) {
-	std::string text(szText);
+	strung text(szText);
 	logNow(stackwalker, "{}", text.substr(0, text.size() - 1))
 }
 void stackWalker::OnLoadModule(LPCSTR img, LPCSTR mod, DWORD64 baseAddr, DWORD size, DWORD result, LPCSTR symType, LPCSTR pdbName, ULONGLONG fileVersion) {

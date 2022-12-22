@@ -7,18 +7,18 @@
 namespace gui::menu::options::types {
 	class submenuOption : public abstractOption {
 	public:
-		submenuOption(std::string name, std::string description, menu::types::submenu submenu, std::function<void()> action) :
-			abstractOption(name, "r", description, eOptionTypes::SubmenuOption),
+		submenuOption(strung name, strung description, menu::types::submenu submenu, std::function<void()> action) :
+			abstractOption(name, description, eOptionTypes::SubmenuOption),
 			m_submenu(submenu),
 			m_action(std::move(action))
 		{}
-		submenuOption(std::string name, std::string description, menu::types::submenu submenu) :
+		submenuOption(strung name, strung description, menu::types::submenu submenu) :
 			submenuOption(name, description, submenu, nullptr)
 		{}
-		submenuOption(std::string name, menu::types::submenu submenu, std::function<void()> action) :
-			submenuOption(name, std::string(), submenu, std::move(action))
+		submenuOption(strung name, menu::types::submenu submenu, std::function<void()> action) :
+			submenuOption(name, strung(), submenu, std::move(action))
 		{}
-		submenuOption(std::string name, menu::types::submenu submenu) :
+		submenuOption(strung name, menu::types::submenu submenu) :
 			submenuOption(name, submenu, nullptr)
 		{}
 	public:
@@ -30,6 +30,9 @@ namespace gui::menu::options::types {
 				gui::menu::push(m_submenu);
 			} break;
 			}
+		}
+		strung getRightText() {
+			return "r";
 		}
 	public:
 		std::function<void()> m_action{};

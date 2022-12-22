@@ -1,10 +1,10 @@
 #include "script/self/movement/movement.h"
 
 namespace script {
-	auto cfg = g_config.get()["self"]["movement"];
+	auto s_m_cfg = g_config.get()["self"]["movement"];
 	movement::movement() : submenu("Movement", &movement::call) {}
 	void movement::call(submenu& sub) {
-		sub.add(booleanOption("Super Run", cfg["superRun"].get_ref<bool&>()));
-		sub.add(booleanOption("Super Jump", cfg["superJump"].get_ref<bool&>()));
+		sub.add(booleanOption("Super Run", s_m_cfg["superRun"].get_ref<bool&>()));
+		sub.add(booleanOption("Super Jump", s_m_cfg["superJump"].get_ref<bool&>()));
 	}
 }

@@ -66,7 +66,7 @@ public:
 	}
 public:
 	template <typename ...arguments>
-	void log(eLogColor col, std::string type, std::string fmt, arguments... args) {
+	void log(eLogColor col, strung type, strung fmt, arguments... args) {
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), static_cast<uint16_t>(col));
 		auto getTime = std::time(nullptr);
 		auto timeStruct = std::localtime(&getTime);
@@ -75,7 +75,7 @@ public:
 		m_file << msg << '\n';
 	}
 	template <typename ...arguments>
-	void log(eLogType type, std::string fmt, arguments... args) {
+	void log(eLogType type, strung fmt, arguments... args) {
 		switch (type) {
 		case eLogType::info: log(eLogColor::White, "Info", fmt, args...); break;
 		case eLogType::warn: log(eLogColor::LightBlue, "Warning", fmt, args...); break;

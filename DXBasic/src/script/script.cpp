@@ -3,11 +3,13 @@
 #include "fiber/queue.h"
 #include "natives/natives.h"
 #include "gui/gui.h"
+#include "gui/translation/translation.h"
 #include "gui/option_types/regular_option.h"
 #include "script/home/home.h"
 
 namespace script {
 	void init() {
+		g_translation.load(strung());
 		gui::menu::init(home());
 	}
 	void tick() {

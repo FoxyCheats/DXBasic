@@ -93,6 +93,7 @@
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -120,6 +121,7 @@
     <ClInclude Include="src\gui\option_types\regular_option.h" />
     <ClInclude Include="src\gui\option_types\submenu_option.h" />
     <ClInclude Include="src\gui\submenu_types\submenu.h" />
+    <ClInclude Include="src\gui\translation\translation.h" />
     <ClInclude Include="src\hooks\detour_hooks\detour_hooks.h" />
     <ClInclude Include="src\hooks\hooks.h" />
     <ClInclude Include="src\hooks\vmt_hooks\vmt_hooks.h" />
@@ -145,13 +147,16 @@
     <ClInclude Include="src\script\settings\settings.h" />
     <ClInclude Include="src\stack\call_spoof.h" />
     <ClInclude Include="src\stack\x64\disassembler.h" />
-    <ClInclude Include="util\util.h" />
+    <ClInclude Include="src\util\globals.h" />
+    <ClInclude Include="src\util\timer.h" />
+    <ClInclude Include="src\util\util.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\config\config.cpp" />
     <ClCompile Include="src\core\core.cpp" />
     <ClCompile Include="src\features\features.cpp" />
     <ClCompile Include="src\gui\gui.cpp" />
+    <ClCompile Include="src\gui\translation\translation.cpp" />
     <ClCompile Include="src\hooks\convert_thread_to_fiber.cpp" />
     <ClCompile Include="src\hooks\get_thread_context.cpp" />
     <ClCompile Include="src\hooks\hooks.cpp" />
@@ -170,7 +175,7 @@
     <ClCompile Include="src\script\self\movement\movement.cpp" />
     <ClCompile Include="src\script\self\self.cpp" />
     <ClCompile Include="src\script\settings\settings.cpp" />
-    <ClCompile Include="util\util.cpp" />
+    <ClCompile Include="src\util\util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Masm Include="src\stack\call_spoof.asm" />

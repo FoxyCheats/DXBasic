@@ -35,7 +35,7 @@ namespace gui {
 	inline bool g_pushMenu{ true };
 	inline std::stack<menu::types::submenu> g_menus{};
 	inline menu::types::submenu g_menuToPush{};
-	inline ImVec2 g_pos{ 25.f, 5.f };
+	inline ImVec2 g_pos{ 25.f, 25.f };
 	namespace sizes {
 		namespace rects {
 			inline float g_width{ 350.f };
@@ -93,7 +93,7 @@ namespace gui {
 		namespace menuSections {
 			extern void header();
 			extern void subtitle();
-			extern void option(menu::options::types::abstractOption* opt, bool selected);
+			extern void option(menu::options::types::abstractOption* opt, int count, bool selected);
 			extern void options();
 			extern void footer();
 			extern void description();
@@ -107,7 +107,7 @@ namespace gui {
 		extern void rect(ImVec2 pos, ImVec2 size, ImU32 color, ImDrawList* drawList = ImGui::GetBackgroundDrawList());
 		extern void line(ImVec2 pos, ImVec2 size, ImU32 color, float thickness = 1.f, ImDrawList* drawList = ImGui::GetForegroundDrawList());
 		extern void sprite(ImTextureID* resource, ImVec2 pos, ImVec2 size, ImU32 color, ImDrawList* drawList = ImGui::GetForegroundDrawList());
-		extern void text(std::string text, ImVec2 pos, ImU32 color, ImFont* font, ImDrawList* drawList = ImGui::GetForegroundDrawList());
+		extern void text(strung text, ImVec2 pos, ImU32 color, ImFont* font, ImDrawList* drawList = ImGui::GetForegroundDrawList());
 		extern void draw();
 	}
 	namespace keyHandlers {

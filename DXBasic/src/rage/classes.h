@@ -548,8 +548,8 @@ namespace rage {
 					hash.push_back(m_data[i].m_hash);
 			return hash;
 		}
-		std::list<std::string> all_script_names() {
-			std::list<std::string> hash;
+		std::list<strung> all_script_names() {
+			std::list<strung> hash;
 			for (uint32_t i = 0; i < m_size; ++i)
 				if (m_data[i].m_program != nullptr && m_data[i].m_program->m_name != nullptr)
 					hash.push_back(m_data[i].m_program->m_name);
@@ -2018,7 +2018,7 @@ public:
 }; //Size: 0x0114
 class CVehicleHandle {
 public:
-	CAutomobile* m_vehicle; //0x0000
+	CVehicle* m_vehicle; //0x0000
 	int32_t m_handle; //0x0008
 	char pad_000C[4]; //0x000C
 }; //Size: 0x0010
@@ -2038,7 +2038,7 @@ public:
 	int32_t m_max_vehicles; //0x0188
 	char pad_018C[4]; //0x018C
 	int32_t m_cur_vehicles; //0x0190
-	CAutomobile* get_vehicle(const int& index) {
+	CVehicle* get_vehicle(const int& index) {
 		if (index < m_max_vehicles)
 			return m_vehicle_list->m_vehicles[index].m_vehicle;
 		return nullptr;
@@ -2054,71 +2054,3 @@ public:
 	char pad_0x0030[0x10]; //0x0030
 }; //Size=0x0040
 class CNetworkObjectMgr : public rage::netObjectMgrBase {};
-class CUpdateFxnEventVtbl {
-public:
-	void* Destructor; //0x0000
-	void* GetName; //0x0008
-	void* IsInScope; //0x0018
-	void* CanChangeScope; //0x0020
-	void* Prepare; //0x0028
-	char pad_0030[16]; //0x0030
-}; //Size=0x0040
-
-class globals {
-private:
-	uint64_t m_index;
-	static void* getScriptGlobal(uint64_t index) { return g_pointers.m_globals[index >> 18 & 0x3F] + (index & 0x3FFFF); }
-	static void* getLocalGlobal(PVOID stack, uint64_t index) { return reinterpret_cast<uintptr_t*>(uintptr_t(stack) + (index * sizeof(uintptr_t))); }
-public:
-	globals(uint64_t index) {
-		m_index = index;
-	}
-	globals at(uint64_t index) {
-		return globals(m_index + index);
-	}
-	globals at(uint64_t index, uint64_t size) {
-		return at(1 + (index * size));
-	}
-	//Script Globals
-	template <typename T> std::enable_if_t<std::is_pointer<T>::value, T> as() {
-		return (T)getScriptGlobal(m_index);
-	}
-	//Local Globals
-	template <typename T> std::enable_if_t<std::is_pointer<T>::value, T> asLocal(PVOID stack) {
-		return (T)getLocalGlobal(stack, m_index);
-	}
-};
-class simpleTimer {
-public:
-	void start(std::uint64_t ticks) {
-		if (m_tick) {
-			m_ready_at = GetTickCount64() + ticks;
-			m_tick = false;
-		}
-	}
-	bool isReady() {
-		return GetTickCount64() > m_ready_at;
-	}
-	void reset() {
-		m_tick = true;
-	}
-private:
-	std::uint64_t m_ready_at;
-	bool m_tick;
-};
-
-template <typename type>
-inline CNetGamePlayer* getNetPlyr(type val) {
-	if (auto netPlyrMgr = *g_pointers.m_networkPlayerMgr; netPlyrMgr) {
-		for (auto& plyr : netPlyrMgr->m_player_list) {
-			if (plyr && plyr->IsConnected()) {
-				if (auto netData = plyr->GetGamerInfo(); netData) {
-					if (netData->m_host_token == (uint64_t)val || plyr->m_player_id == (uint8_t)val || plyr->m_msg_id == (uint32_t)val || netData->m_id == (uint64_t)val) {
-						return plyr;
-					}
-				}
-			}
-		}
-	}
-	return nullptr;
-}
