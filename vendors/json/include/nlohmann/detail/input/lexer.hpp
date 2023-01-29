@@ -1,11 +1,3 @@
-//     __ _____ _____ _____
-//  __|  |   __|     |   | |  JSON for Modern C++
-// |  |  |__   |  |  | | | |  version 3.11.2
-// |_____|_____|_____|_|___|  https://github.com/nlohmann/json
-//
-// SPDX-FileCopyrightText: 2013-2022 Niels Lohmann <https://nlohmann.me>
-// SPDX-License-Identifier: MIT
-
 #pragma once
 
 #include <array> // array
@@ -22,10 +14,10 @@
 #include <nlohmann/detail/input/position_t.hpp>
 #include <nlohmann/detail/macro_scope.hpp>
 
-NLOHMANN_JSON_NAMESPACE_BEGIN
+namespace nlohmann
+{
 namespace detail
 {
-
 ///////////
 // lexer //
 ///////////
@@ -1627,6 +1619,5 @@ scan_number_done:
     /// the decimal point
     const char_int_type decimal_point_char = '.';
 };
-
 }  // namespace detail
-NLOHMANN_JSON_NAMESPACE_END
+}  // namespace nlohmann

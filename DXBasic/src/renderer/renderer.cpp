@@ -85,14 +85,14 @@ renderer::renderer() : m_swapchain(*g_pointers.m_swapchain) {
 	ImGui_ImplWin32_Init(g_pointers.m_hwnd);
 	m_fontCfg.FontDataOwnedByAtlas = false;
 	m_font = ImGui::GetIO().Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\Arial.ttf", 20.f, &m_fontCfg);
-	m_headerFont = ImGui::GetIO().Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\AriBLK.ttf", 40.f, &m_fontCfg);
-	m_subtitleFont = ImGui::GetIO().Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\Arial.ttf", 19.f, &m_fontCfg);
-	m_optionFont = ImGui::GetIO().Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\Arial.ttf", 17.f, &m_fontCfg);
-	m_footerFont = ImGui::GetIO().Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\Arial.ttf", 19.f, &m_fontCfg);
-	m_descriptionFont = ImGui::GetIO().Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\Arial.ttf", 19.f, &m_fontCfg);
-	m_smallIconFont = ImGui::GetIO().Fonts->AddFontFromMemoryTTF((void*)iconFont, sizeof(iconFont), 10.f, &m_fontCfg);
-	m_mediumIconFont = ImGui::GetIO().Fonts->AddFontFromMemoryTTF((void*)iconFont, sizeof(iconFont), 15.f, &m_fontCfg);
-	m_largeIconFont = ImGui::GetIO().Fonts->AddFontFromMemoryTTF((void*)iconFont, sizeof(iconFont), 20.f, &m_fontCfg);
+	m_headerFont = ImGui::GetIO().Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\AriBLK.ttf", gui::sizes::fonts::g_header, &m_fontCfg);
+	m_subtitleFont = ImGui::GetIO().Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\Arial.ttf", gui::sizes::fonts::g_subtitle, &m_fontCfg);
+	m_optionFont = ImGui::GetIO().Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\Arial.ttf", gui::sizes::fonts::g_option, &m_fontCfg);
+	m_footerFont = ImGui::GetIO().Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\Arial.ttf", gui::sizes::fonts::g_footer, &m_fontCfg);
+	m_descriptionFont = ImGui::GetIO().Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\Arial.ttf", gui::sizes::fonts::g_description, &m_fontCfg);
+	m_smallIconFont = ImGui::GetIO().Fonts->AddFontFromMemoryTTF((void*)iconFont, sizeof(iconFont), gui::sizes::fonts::icon::g_small, &m_fontCfg);
+	m_mediumIconFont = ImGui::GetIO().Fonts->AddFontFromMemoryTTF((void*)iconFont, sizeof(iconFont), gui::sizes::fonts::icon::g_medium, &m_fontCfg);
+	m_largeIconFont = ImGui::GetIO().Fonts->AddFontFromMemoryTTF((void*)iconFont, sizeof(iconFont), gui::sizes::fonts::icon::g_large, &m_fontCfg);
 }
 renderer::~renderer() {
 	SetWindowLongPtrA(g_pointers.m_hwnd, GWLP_WNDPROC, LONG_PTR(m_wndProc));

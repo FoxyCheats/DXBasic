@@ -4,6 +4,7 @@
 #include "gui/option_types/regular_option.h"
 #include "gui/option_types/submenu_option.h"
 #include "gui/option_types/boolean_option.h"
+#include "gui/option_types/number_option.h"
 
 namespace script {
 	using namespace gui::menu::types;

@@ -19,7 +19,7 @@ void invoker::end(std::uint64_t hash) {
 			return;
 		}
 		spoofCall(g_pointers.m_jmpRbxRegister, val->second, dynamic_cast<rage::scrNativeCallContext*>(&m_context));
-		//dynamic_cast<rage::scrNativeCallContext*>(&m_context)->fixVectors();
+		dynamic_cast<rage::scrNativeCallContext*>(&m_context)->shiftVectorCoords();
 	}
 	else {
 		logNow(fatal, "Failed to find 0x{:X} native's handler.", hash)

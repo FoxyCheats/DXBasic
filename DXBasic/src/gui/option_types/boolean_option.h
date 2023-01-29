@@ -5,18 +5,18 @@
 namespace gui::menu::options::types {
 	class booleanOption : public abstractOption {
 	public:
-		booleanOption(strung name, strung description, bool& boolean, std::function<void()> action) :
+		booleanOption(strung name, strung description, bool* boolean, std::function<void()> action) :
 			m_action(std::move(action)),
-			m_boolean(&boolean),
+			m_boolean(boolean),
 			abstractOption(name, description, eOptionTypes::BooleanOption)
 		{}
-		booleanOption(strung name, strung description, bool& boolean) :
+		booleanOption(strung name, strung description, bool* boolean) :
 			booleanOption(name, description, boolean, nullptr)
 		{}
-		booleanOption(strung name, bool& boolean, std::function<void()> action) :
+		booleanOption(strung name, bool* boolean, std::function<void()> action) :
 			booleanOption(name, strung(), boolean, std::move(action))
 		{}
-		booleanOption(strung name, bool& boolean) :
+		booleanOption(strung name, bool* boolean) :
 			booleanOption(name, boolean, std::function<void()>(nullptr))
 		{}
 	public:

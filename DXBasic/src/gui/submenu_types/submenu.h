@@ -28,7 +28,7 @@ namespace gui::menu::types {
 			return m_options.size() && !m_options.empty() && m_options[idx] ? m_options[idx].get() : nullptr;
 		}
 	public:
-		void callAction() {
+		void call() {
 			if (m_action)
 				m_action(static_cast<submenu&>(*this));
 		}
@@ -39,11 +39,11 @@ namespace gui::menu::types {
 		void setCurrentOption(size_t position) {
 			m_currentOption = position;
 		}
-		size_t getCurrentOption() {
+		size_t currentOption() {
 			return m_currentOption;
 		}
 	public:
-		void executeOptionAdding() {
+		void execute() {
 			__try {
 				if (const auto& act = m_action; act) {
 					act(static_cast<submenu&>(*this));
@@ -53,26 +53,26 @@ namespace gui::menu::types {
 			if (m_currentOption >= m_options.size())
 				m_currentOption = 0;
 		}
-		void clearOptions() {
+		void reset() {
 			m_options.clear();
 		}
 	public:
 		void action(eActionType type) {
 			switch (type) {
 			case eActionType::Up: {
-				if (getCurrentOption() > 0)
-					setCurrentOption(getCurrentOption() - 1);
+				if (currentOption() > 0)
+					setCurrentOption(currentOption() - 1);
 				else
 					setCurrentOption(m_options.size() - 1);
 			} break;
 			case eActionType::Down: {
-				if (getCurrentOption() < m_options.size() - 1)
-					setCurrentOption(getCurrentOption() + 1);
+				if (currentOption() < m_options.size() - 1)
+					setCurrentOption(currentOption() + 1);
 				else
 					setCurrentOption(0);
 			} break;
 			default: {
-				get(m_currentOption)->action(type);
+				get(currentOption())->action(type);
 			} break;
 			}
 		}

@@ -1,11 +1,3 @@
-//     __ _____ _____ _____
-//  __|  |   __|     |   | |  JSON for Modern C++
-// |  |  |__   |  |  | | | |  version 3.11.2
-// |_____|_____|_____|_|___|  https://github.com/nlohmann/json
-//
-// SPDX-FileCopyrightText: 2013-2022 Niels Lohmann <https://nlohmann.me>
-// SPDX-License-Identifier: MIT
-
 #pragma once
 
 #include <array> // array
@@ -26,12 +18,12 @@
 #include <nlohmann/detail/iterators/iterator_traits.hpp>
 #include <nlohmann/detail/macro_scope.hpp>
 
-NLOHMANN_JSON_NAMESPACE_BEGIN
+namespace nlohmann
+{
 namespace detail
 {
-
 /// the supported input formats
-enum class input_format_t { json, cbor, msgpack, ubjson, bson, bjdata };
+enum class input_format_t { json, cbor, msgpack, ubjson, bson };
 
 ////////////////////
 // input adapters //
@@ -50,9 +42,7 @@ class file_input_adapter
     JSON_HEDLEY_NON_NULL(2)
     explicit file_input_adapter(std::FILE* f) noexcept
         : m_file(f)
-    {
-        JSON_ASSERT(m_file != nullptr);
-    }
+    {}
 
     // make class move-only
     file_input_adapter(const file_input_adapter&) = delete;
@@ -410,7 +400,7 @@ struct container_input_adapter_factory< ContainerType,
 }
        };
 
-}  // namespace container_input_adapter_factory_impl
+} // namespace container_input_adapter_factory_impl
 
 template<typename ContainerType>
 typename container_input_adapter_factory_impl::container_input_adapter_factory<ContainerType>::adapter_type input_adapter(const ContainerType& container)
@@ -489,6 +479,5 @@ class span_input_adapter
   private:
     contiguous_bytes_input_adapter ia;
 };
-
 }  // namespace detail
-NLOHMANN_JSON_NAMESPACE_END
+}  // namespace nlohmann

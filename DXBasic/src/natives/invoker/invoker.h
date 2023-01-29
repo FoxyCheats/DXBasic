@@ -35,7 +35,7 @@ namespace rage {
 			*reinterpret_cast<std::remove_cv_t<std::remove_reference_t<t>>*>(m_ret) = std::forward<t>(value);
 		}
 	public:
-		int64_t fixVectors() {
+		int64_t shiftVectorCoords() {
 			auto a1 = (int64_t)this;
 			int64_t res{};
 			for (; *(uint32_t*)(a1 + 0x18); *(uint32_t*)(*(uint64_t*)(a1 + 8i64 * *(int*)(a1 + 0x18) + 0x20) + 16i64) = uint32_t(res)) {

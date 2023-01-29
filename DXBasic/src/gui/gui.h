@@ -110,7 +110,7 @@ namespace gui {
 		extern void text(strung text, ImVec2 pos, ImU32 color, ImFont* font, ImDrawList* drawList = ImGui::GetForegroundDrawList());
 		extern void draw();
 	}
-	namespace keyHandlers {
+	namespace handlers {
 		namespace sounds {
 			struct soundData {
 				bool m_active{};
@@ -127,8 +127,10 @@ namespace gui {
 			inline soundData g_down{ g_up };
 			extern void soundQueue(soundData& sound);
 		}
-		extern void keyPress(bool& isPressed, int8_t key, size_t delay);
-		extern void check();
-		extern void handle();
+		namespace key {
+			extern void press(bool& isPressed, int8_t key, size_t delay);
+			extern void check();
+			extern void actions();
+		}
 	}
 }

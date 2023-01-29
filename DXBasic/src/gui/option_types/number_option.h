@@ -6,17 +6,17 @@ namespace gui::menu::options::types {
 	template <typename type>
 	class numberOption : public abstractOption {
 	public:
-		numberOption(strung name, strung description, type& number, type increment, type minimum, type maximum, std::function<void()> action) :
+		numberOption(strung name, strung description, type* number, type increment, type minimum, type maximum, std::function<void()> action) :
 			abstractOption(name, description, eOptionTypes::NumberOption),
-			m_number(&number), m_increment(increment), m_minimum(minimum), m_maximum(maximum),
+			m_number(number), m_increment(increment), m_minimum(minimum), m_maximum(maximum),
 			m_action(std::move(action))
 		{}
-		numberOption(strung name, strung description, type& number) : numberOption(name, description, number, nullptr)
+		numberOption(strung name, strung description, type* number) : numberOption(name, description, number, nullptr)
 		{}
-		numberOption(strung name, type& number, std::function<void()> action) :
+		numberOption(strung name, type* number, std::function<void()> action) :
 			numberOption(name, strung(), number, std::move(action))
 		{}
-		numberOption(strung name, type& number) :
+		numberOption(strung name, type* number) :
 			numberOption(name, number, nullptr)
 		{}
 	public:

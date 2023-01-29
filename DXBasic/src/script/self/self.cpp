@@ -7,8 +7,7 @@ namespace script {
 	bool toggle{};
 	void self::call(submenu& sub) {
 		sub.add(submenuOption("Movement", movement()));
-		sub.add(booleanOption("Test", "Hello World", toggle));
-		sub.add(booleanOption("God Mode", s_cfg["godMode"].get_ref<bool&>()));
-		sub.add(booleanOption("Never Wanted", s_cfg["neverWanted"].get_ref<bool&>()));
+		sub.add(booleanOption("God Mode", s_cfg["godMode"].get<bool*>()));
+		sub.add(booleanOption("Never Wanted", s_cfg["neverWanted"].get<bool*>()));
 	}
 }

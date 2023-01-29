@@ -83,10 +83,9 @@ namespace gui {
 				}
 			}
 			void options() {
-				auto& menu = g_menus.top();
-				menu.clearOptions();
-				menu.executeOptionAdding();
-				if (OPTION_COUNT != 0) {	
+				CURRENT_MENU.reset();
+				CURRENT_MENU.execute();
+				if (OPTION_COUNT) {	
 					size_t startPoint{}, endPoint{ OPTION_COUNT > MAX_VISIBLE_OPTIONS ? MAX_VISIBLE_OPTIONS : OPTION_COUNT };
 					if (OPTION_COUNT > MAX_VISIBLE_OPTIONS && CURRENT_OPTION >= MAX_VISIBLE_OPTIONS - 1)
 						startPoint = CURRENT_OPTION - MAX_VISIBLE_OPTIONS, endPoint = CURRENT_OPTION;
@@ -145,9 +144,9 @@ namespace gui {
 			ImGui::PopFont();
 		}
 		void draw() {
-			keyHandlers::check();
+			handlers::key::check();
 			if (IS_STACK_VALID) {
-				keyHandlers::handle();
+				handlers::key::actions();
 				if (g_isOpen) {
 					menuSections::header();
 					menuSections::subtitle();
@@ -164,7 +163,7 @@ namespace gui {
 			}
 		}
 	}
-	namespace keyHandlers {
+	namespace handlers {
 		namespace sounds {
 			void soundQueue(soundData& sound) {
 				if (sound.m_active) {
@@ -174,60 +173,62 @@ namespace gui {
 				}
 			}
 		}
-		void keyPress(bool& isPressed, int8_t key, size_t delay) {
-			if (GetForegroundWindow() == g_pointers.m_hwnd) {
-				static simpleTimer t{};
-				if (GetAsyncKeyState(key) & 1) {
-					isPressed = true;
-				}
-				else if (GetAsyncKeyState(key) & 0x8000) {
-					t.start(delay * 100);
-					if (t.isReady())
+		namespace key {
+			void press(bool& isPressed, int8_t key, size_t delay) {
+				if (GetForegroundWindow() == g_pointers.m_hwnd) {
+					static simpleTimer t{};
+					if (GetAsyncKeyState(key) & 1) {
 						isPressed = true;
-				}
-				else {
-					t.reset();
+					}
+					else if (GetAsyncKeyState(key) & 0x8000) {
+						t.start(delay * 100);
+						if (t.isReady())
+							isPressed = true;
+					}
+					else {
+						t.reset();
+					}
 				}
 			}
-		}
-		void check() {
-			keyPress(keys::pressed::g_open, keys::g_open, keys::delays::g_open);
-			keyPress(keys::pressed::g_enter, keys::g_enter, keys::delays::g_enter);
-			keyPress(keys::pressed::g_back, keys::g_back, keys::delays::g_back);
-			keyPress(keys::pressed::g_up, keys::g_up, keys::delays::g_up);
-			keyPress(keys::pressed::g_down, keys::g_down, keys::delays::g_down);
-			keyPress(keys::pressed::g_left, keys::g_left, keys::delays::g_left);
-			keyPress(keys::pressed::g_right, keys::g_right, keys::delays::g_right);
-		}
-		void handle() {
-			if (keys::pressed::g_open) {
-				soundQueue(g_isOpen ? sounds::g_open : sounds::g_close);
-				g_isOpen ^= true;
+			void check() {
+				press(keys::pressed::g_open, keys::g_open, keys::delays::g_open);
+				press(keys::pressed::g_enter, keys::g_enter, keys::delays::g_enter);
+				press(keys::pressed::g_back, keys::g_back, keys::delays::g_back);
+				press(keys::pressed::g_up, keys::g_up, keys::delays::g_up);
+				press(keys::pressed::g_down, keys::g_down, keys::delays::g_down);
+				press(keys::pressed::g_left, keys::g_left, keys::delays::g_left);
+				press(keys::pressed::g_right, keys::g_right, keys::delays::g_right);
 			}
-			if (g_isOpen) {
-				if (keys::pressed::g_enter) {
-					soundQueue(sounds::g_enter);
-					CURRENT_MENU.action(menu::types::eActionType::Enter);
+			void actions() {
+				if (keys::pressed::g_open) {
+					soundQueue(g_isOpen ? sounds::g_open : sounds::g_close);
+					g_isOpen ^= true;
 				}
-				if (keys::pressed::g_back) {
-					soundQueue(sounds::g_back);
-					menu::pop();
-				}
-				if (keys::pressed::g_up) {
-					soundQueue(sounds::g_up);
-					CURRENT_MENU.action(menu::types::eActionType::Up);
-				}
-				if (keys::pressed::g_down) {
-					soundQueue(sounds::g_down);
-					CURRENT_MENU.action(menu::types::eActionType::Down);
-				}
-				if (keys::pressed::g_left) {
-					soundQueue(sounds::g_left);
-					CURRENT_MENU.action(menu::types::eActionType::Left);
-				}
-				if (keys::pressed::g_right) {
-					soundQueue(sounds::g_right);
-					CURRENT_MENU.action(menu::types::eActionType::Right);
+				if (g_isOpen) {
+					if (keys::pressed::g_enter) {
+						soundQueue(sounds::g_enter);
+						CURRENT_MENU.action(menu::types::eActionType::Enter);
+					}
+					if (keys::pressed::g_back) {
+						soundQueue(sounds::g_back);
+						menu::pop();
+					}
+					if (keys::pressed::g_up) {
+						soundQueue(sounds::g_up);
+						CURRENT_MENU.action(menu::types::eActionType::Up);
+					}
+					if (keys::pressed::g_down) {
+						soundQueue(sounds::g_down);
+						CURRENT_MENU.action(menu::types::eActionType::Down);
+					}
+					if (keys::pressed::g_left) {
+						soundQueue(sounds::g_left);
+						CURRENT_MENU.action(menu::types::eActionType::Left);
+					}
+					if (keys::pressed::g_right) {
+						soundQueue(sounds::g_right);
+						CURRENT_MENU.action(menu::types::eActionType::Right);
+					}
 				}
 			}
 		}

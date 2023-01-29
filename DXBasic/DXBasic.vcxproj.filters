@@ -214,7 +214,6 @@
     <ClInclude Include="src\util\timer.h">
       <Filter>util</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\translation\translation.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\config\config.cpp">
@@ -278,7 +277,6 @@
     <ClCompile Include="src\util\util.cpp">
       <Filter>util</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\translation\translation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Masm Include="src\stack\call_spoof.asm">
