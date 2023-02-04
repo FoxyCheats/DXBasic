@@ -10,7 +10,7 @@ namespace script {
 	void init() {
 		gui::menu::init(home());
 	}
-	void tick() {
+	void onTick() {
 		script::init();
 		while (true) {
 			PAD::DISABLE_CONTROL_ACTION(2, 27, true);

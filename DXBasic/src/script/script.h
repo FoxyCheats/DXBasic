@@ -3,5 +3,5 @@
 
 namespace script {
 	extern void init();
-	extern void tick();
+	extern void onTick();
 }

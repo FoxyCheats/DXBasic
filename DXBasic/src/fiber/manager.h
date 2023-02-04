@@ -19,7 +19,6 @@ namespace fibers::manager {
 			}
 			return nullptr;
 		};
-
 		template <typename call, typename ...arguments>
 		inline bool executeUnderScr(GtaThread* scr, call&& callback, arguments&&... args) {
 			auto tlsCtx = rage::tlsContext::get();
@@ -34,15 +33,40 @@ namespace fibers::manager {
 			return true;
 		}
 	}
-	inline std::vector<fiber*> g_fibers;
-	inline void handler() {
-		static bool ensureMainFbr = (ConvertThreadToFiber(nullptr), true);
-		if (!ensureMainFbr)
-			return;
-		for (auto& scr : g_fibers)
-			scr->tick();
-	}
-	inline void scriptTick(uint32_t hash) {
-		util::executeUnderScr(util::get_scrThread(hash), &handler);
-	}
+	class manager {
+	public:
+		manager() : m_maxNumOfFibers(20) {}
+		~manager() {
+			for (auto& element : m_fibers) {
+				this->erase(element.first);
+			}
+		}
+	public:
+		bool push(fiber fbr) {
+			if (m_fibers.size() == m_maxNumOfFibers)
+				return false;
+			m_fibers.insert(std::make_pair(fbr.m_name.c_str(), std::make_unique<fiber>(fbr)));
+			return true;
+		}
+		bool erase(char const* name) {
+			return m_fibers.erase(name);
+		}
+	public:
+		void onTick() {
+			static bool ensure = (ConvertThreadToFiber(nullptr), true);
+			if (!ensure)
+				return;
+			for (auto& element : m_fibers) {
+				auto& fbr = element.second;
+				fbr->onTick();
+			}
+		}
+		void onScriptTick(uint32_t hash) {
+			util::executeUnderScr(util::get_scrThread(hash), std::mem_fn(&manager::onTick), this);
+		}
+	public:
+		std::map<char const*, std::unique_ptr<fiber>> m_fibers{};
+		int m_maxNumOfFibers{ 20 };
+	};
+	inline std::unique_ptr<manager> g_manager{};
 }

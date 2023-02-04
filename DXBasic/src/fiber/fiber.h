@@ -14,7 +14,7 @@ namespace fibers {
 				DeleteFiber(m_secondary);
 		}
 	public:
-		void tick() {
+		void onTick() {
 			m_primary = GetCurrentFiber();
 			if (!m_time.has_value() || m_time.value() <= std::chrono::high_resolution_clock::now())
 				SwitchToFiber(m_secondary);

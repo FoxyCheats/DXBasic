@@ -37,5 +37,5 @@ namespace util {
 		extern Vehicle getLocalVehicleHandle();
 		extern void tick();
 	}
-	extern void tick();
+	extern void onTick();
 }

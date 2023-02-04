@@ -53,7 +53,7 @@ namespace features {
 			neverWanted();
 		}
 	}
-	void tick() {
+	void onTick() {
 		while (true) {
 			self::s_cfg = g_config.get()["self"];
 			self::movement::s_m_cfg = self::s_cfg["movement"];

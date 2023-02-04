@@ -175,9 +175,6 @@
     <ClInclude Include="src\stack\call_spoof.h">
       <Filter>stack</Filter>
     </ClInclude>
-    <ClInclude Include="src\stack\x64\disassembler.h">
-      <Filter>stack\x64</Filter>
-    </ClInclude>
     <ClInclude Include="src\gui\submenu_types\submenu.h">
       <Filter>gui\submenu_types</Filter>
     </ClInclude>
@@ -213,6 +210,9 @@
     </ClInclude>
     <ClInclude Include="src\util\timer.h">
       <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\stack\x64\disassembler.h">
+      <Filter>stack\x64</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

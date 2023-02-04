@@ -36,16 +36,15 @@ namespace core {
 		g_invoker.cache();
 		g_renderer = std::make_unique<renderer>();
 		g_hooking = std::make_unique<hooking>();
-		fibers::manager::g_fibers.push_back(new fibers::fiber("scriptFiber", &script::tick));
-		fibers::manager::g_fibers.push_back(new fibers::fiber("utilFiber", &util::tick));
-		fibers::manager::g_fibers.push_back(new fibers::fiber("featuresFiber", &features::tick));
+		fibers::manager::g_manager->push(fibers::fiber("scriptFiber", &script::onTick));
+		fibers::manager::g_manager->push(fibers::fiber("utilFiber", &util::onTick));
+		fibers::manager::g_manager->push(fibers::fiber("featuresFiber", &features::onTick));
 		fibers::queue::g_queue.createScripts();
 		g_hooking->hook();
 	}
 	void uninit() {
 		g_hooking->unhook();
-		for (auto& fbr : fibers::manager::g_fibers)
-			delete fbr;
+		fibers::manager::g_manager.reset();
 		g_invoker.m_cache.clear();
 		g_hooking.reset();
 		g_renderer.reset();

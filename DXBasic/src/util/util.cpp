@@ -110,7 +110,7 @@ namespace util {
 			g_entityHandle = getLocalVehicleHandle();
 		}
 	}
-	void tick() {
+	void onTick() {
 		while (true) {
 			ped::tick();
 			player::tick();

@@ -18,5 +18,5 @@ namespace features {
 		extern void neverWanted();
 		extern void tick();
 	}
-	extern void tick();
+	extern void onTick();
 }
