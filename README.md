@@ -10,7 +10,7 @@ Gatekeep these fucking nuts. Stop trying to gatekeep DirectX like you made it, S
 - The UI is purely a example, it's more to showcase it's option system and ease of use
 
 # Why should I use this over BigBase?
-I think it's a lot of effort to update BigBase, it's an old base now.
+I think it's a lot of effort to update BigBase, it's an old base now. You virtually need to gut it to make it useable. However, this base is quite simple and easy to use. It's also organised unlike BigBase which is a clusterfuck of files
 
 # Credits
 - Me
