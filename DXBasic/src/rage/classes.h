@@ -55,24 +55,24 @@ namespace rage {
 	public:
 		uint64_t m_peer_id; //0x0000
 		rlGamerHandle m_gamer_handle; //0x0008
-		char m_aes_key[32]; //0x0018
-		uint8_t unk_0038; //0x0038
-		netSocketAddress m_unk_address; //0x003C
-		netSocketAddress m_relay_address; //0x0044
-		netSocketAddress m_public_address; //0x004C
-		netSocketAddress m_local_address;  //0x0054
-		uint32_t unk_005C; //0x005C
+		char m_aes_key[128]; //0x0018
+		uint8_t unk_0098; //0x0098
+		netSocketAddress m_unk_address; //0x009C
+		netSocketAddress m_relay_address; //0x00A4
+		netSocketAddress m_public_address; //0x00AC
+		netSocketAddress m_local_address;  //0x00B4
+		uint32_t unk_00BC; //0x00BC
 	};
-	static_assert(sizeof(rlGamerInfoBase) == 0x60);
+	static_assert(sizeof(rlGamerInfoBase) == 0xC0);
 	class rlGamerInfo : public rlGamerInfoBase {
 	public:
-		uint64_t m_peer_address; //0x0060
-		uint64_t m_platform_data; //0x0068
-		rlGamerHandle m_unk_gamer_handle; //0x0070
-		uint32_t m_ros_privilege; //0x0080
-		char m_name[20]; //0x0084
-	}; //Size: 0x0098
-	static_assert(sizeof(rlGamerInfo) == 0x98);
+		uint64_t m_peer_address; //0x00C0
+		uint64_t m_platform_data; //0x00C8
+		rlGamerHandle m_unk_gamer_handle; //0x00D0
+		uint32_t m_ros_privilege; //0x00E0
+		char m_name[20]; //0x00E4
+	}; //Size: 0x00F8
+	static_assert(sizeof(rlGamerInfo) == 0xF8);
 #pragma pack(push, 8)
 	class netPlayer {
 	public:
@@ -775,7 +775,7 @@ namespace rage {
 		uint64_t m_session_token; //0x0008
 		rlGamerInfoBase m_net_peer_address; //0x0010
 	};
-	static_assert(sizeof(rlSessionInfo) == 0x70);
+	static_assert(sizeof(rlSessionInfo) == 0xD0);
 	class rlSessionByGamerTaskResult {
 	public:
 		rlSessionByGamerTaskResult() : m_gamer_handle(NULL) {}
@@ -1774,8 +1774,8 @@ public:
 	float m_melee_defence_mult; //0x0D20
 	char pad_0D24[8]; //0x0D24
 	float m_melee_weapon_defence_mult; //0x0D2C
-}; //Size: 0x0D30
-static_assert(sizeof(CPlayerInfo) == 0xD30);
+}; //Size: 0x0D90
+static_assert(sizeof(CPlayerInfo) == 0xD90);
 #pragma pack(pop)
 #pragma pack(push, 1)
 class ClanData {
@@ -1848,7 +1848,7 @@ public:
 	uint32_t m_account_id; //0x02B4
 	uint32_t m_unk_02BC; //0x02BC
 }; //Size: 0x02C0
-static_assert(sizeof(CNetGamePlayer) == 0x2C0);
+static_assert(sizeof(CNetGamePlayer) == 0x320);
 #pragma pack(pop)
 #pragma pack(push, 2)
 class CNetworkPlayerMgr : public rage::netPlayerMgrBase {
@@ -1873,7 +1873,7 @@ public:
 	uint32_t unk_B944; //0xB944
 	uint16_t unk_B948; //0xB948
 }; //Size: 0xB94A
-static_assert(sizeof(CNetworkPlayerMgr) == 0xB94A);
+static_assert(sizeof(CNetworkPlayerMgr) == 0xB9AA);
 #pragma pack(pop)
 class GtaThread : public rage::scrThread {
 public:

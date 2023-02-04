@@ -4,7 +4,7 @@
 
 void invoker::cache() {
 	for (auto& mapping : g_crossmap)
-		m_cache.emplace(mapping.u100, g_pointers.m_getNativeHandler(g_pointers.m_nativeRegistrationTable, mapping.u163));
+		m_cache.emplace(mapping.u117, g_pointers.m_getNativeHandler(g_pointers.m_nativeRegistrationTable, mapping.u166));
 }
 
 void invoker::begin() {
