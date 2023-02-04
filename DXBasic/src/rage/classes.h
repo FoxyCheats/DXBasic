@@ -7,11 +7,35 @@
 #define defAsVoid(def) reintType(void*, def)
 #define defAsVoidPtr(def) reintType(void**, def)
 #define defAsInt64(def) reintType(int64_t**, def)
+#define DEFINE_AT_RTTI(T) private: \
+	virtual T* GetIdentifier() { return nullptr; }; \
+	virtual T* GetIdentifier_2() { return nullptr; }; \
+	virtual uint32_t GetTypeHash() { return NULL; }; \
+	virtual T* GetIfIsOfType(T* vft) { return vft; }; \
+	virtual void IsOfType(T* vft) {}; \
+	virtual void IsOfTypeObject(T* object) {}; \
+	public:
 
+class CMoveObjectPooledObject;
 namespace rage {
+	template <typename T>
+	class atRTTI {
+		DEFINE_AT_RTTI(T)
+	};
 	struct vector2 { float x; float y; };
 	struct vector3 { float x; float y; float z; };
 	struct vector4 { float x; float y; float z; float w; };
+	union matrix34
+	{
+		float data[3][4];
+		struct { struct { float x, y, z, w; } rows[3]; };
+	};
+
+	union matrix44
+	{
+		float data[4][4];
+		struct { struct { float x, y, z, w; } rows[4]; };
+	};
 	class netLoggingInterface {
 	public:
 	};
@@ -53,9 +77,10 @@ namespace rage {
 	static_assert(sizeof(rlGamerHandle) == 0x10);
 	class rlGamerInfoBase {
 	public:
-		uint64_t m_peer_id; //0x0000
-		rlGamerHandle m_gamer_handle; //0x0008
-		char m_aes_key[128]; //0x0018
+		char pad_0000[96]; //0x0000
+		uint64_t m_peer_id; //0x0060
+		rlGamerHandle m_gamer_handle; //0x0068
+		char m_aes_key[32]; //0x0078
 		uint8_t unk_0098; //0x0098
 		netSocketAddress m_unk_address; //0x009C
 		netSocketAddress m_relay_address; //0x00A4
@@ -73,8 +98,8 @@ namespace rage {
 		char m_name[20]; //0x00E4
 	}; //Size: 0x00F8
 	static_assert(sizeof(rlGamerInfo) == 0xF8);
-#pragma pack(push, 8)
-	class netPlayer {
+	#pragma pack(push, 8)
+	class netPlayer : atRTTI<netPlayer> {
 	public:
 		virtual ~netPlayer();
 		virtual void Reset();
@@ -99,8 +124,8 @@ namespace rage {
 		uint64_t unk_0098; //0x0098
 	}; //Size: 0x00A0
 	static_assert(sizeof(netPlayer) == 0xA0);
-#pragma pack(pop)
-#pragma pack(push, 8)
+	#pragma pack(pop)
+	#pragma pack(push, 8)
 	class netPlayerMgrBase {
 	public:
 		virtual ~netPlayerMgrBase();
@@ -124,74 +149,20 @@ namespace rage {
 		char pad_0290[1618]; //0x0290
 	}; //Size: 0x08E0
 	static_assert(sizeof(netPlayerMgrBase) == 0x8E0);
-#pragma pack(pop)
+	#pragma pack(pop)
+	#pragma pack(push, 4)
 	class fwDrawData {
 	public:
-		char pad_0000[904]; //0x0000
-		uint8_t m_primary_color; //0x0388
-		char pad_0389[3]; //0x0389
-		uint8_t m_pearlescent; //0x038C
-		char pad_038D[3]; //0x038D
-		uint8_t m_secondary_color; //0x0390
-		char pad_0391[15]; //0x0391
-		uint8_t m_neon_blue; //0x03A0
-		uint8_t m_neon_green; //0x03A1
-		uint8_t m_neon_red; //0x03A2
-		char pad_03A3[15]; //0x03A3
-		uint8_t m_spoiler; //0x03B2
-		uint8_t m_bumper_front; //0x03B3
-		uint8_t m_bumper_rear; //0x03B4
-		uint8_t m_sideskirts; //0x03B5
-		uint8_t m_exhaust; //0x03B6
-		uint8_t m_frame; //0x03B7
-		uint8_t m_grille; //0x03B8
-		uint8_t m_hood; //0x03B9
-		uint8_t m_fenders; //0x03BA
-		uint8_t m_bullbars; //0x03BB
-		uint8_t m_roof; //0x03BC
-		char pad_03BD[3]; //0x03BD
-		uint8_t m_ornaments; //0x03C0
-		char pad_03C1[1]; //0x03C1
-		uint8_t m_dail_design; //0x03C2
-		uint8_t m_sunstrips; //0x03C3
-		uint8_t m_seats; //0x03C4
-		uint8_t m_steering_wheel; //0x03C5
-		uint8_t m_column_shifter_levers; //0x03C6
-		char pad_03C7[2]; //0x03C7
-		uint8_t m_truck_beds; //0x03C9
-		char pad_03CA[4]; //0x03CA
-		uint8_t m_roll_cages; //0x03CE
-		uint8_t m_skid_plate; //0x03CF
-		uint8_t m_secondary_light_surrounds; //0x03D0
-		uint8_t m_hood_accessories; //0x03D1
-		uint8_t m_doors; //0x03D2
-		uint8_t m_snorkel; //0x03D3
-		uint8_t m_livery; //0x03D4
-		char pad_03D5[1]; //0x03D5
-		uint8_t m_engine; //0x03D6
-		uint8_t m_brakes; //0x03D7
-		uint8_t m_transmission; //0x03D8
-		uint8_t m_horn; //0x03D9
-		uint8_t m_suspension; //0x03DA
-		uint8_t m_armor; //0x03DB
-		char pad_03DC[1]; //0x03DC
-		uint8_t m_turbo; //0x03DD
-		char pad_03DE[3]; //0x03DE
-		uint8_t m_xenon; //0x03E1
-		uint8_t m_tire_design; //0x03E2
-		char pad_03E3[16]; //0x03E3
-		uint8_t m_truck_bed; //0x03F3
-		char pad_03F4[5]; //0x03F4
-		uint8_t m_wheel_color; //0x03F9
-		char pad_03FA[5]; //0x03FA
-		uint8_t m_window; //0x03FF
-		char pad_0400[2]; //0x0400
-		uint8_t m_neon_left; //0x0402
-		uint8_t m_neon_right; //0x0403
-		uint8_t m_neon_front; //0x0404
-		uint8_t m_neon_rear; //0x0405
-	}; //Size: 0x0406
-	static_assert(sizeof(fwDrawData) == 0x406);
+		uint64_t unk_000; //0x0000
+		uint64_t unk_008; //0x0008
+		char pad_0010[8]; //0x0010
+		uint32_t dword18; //0x0018
+		uint32_t unk_001C; //0x0028
+		uint64_t unk_0020; //0x0028
+		uint32_t unk_0028; //0x0028
+	}; //Size: 0x002C
+	static_assert(sizeof(fwDrawData) == 0x2C);
+	#pragma pack(pop)
 	template <typename T>
 	class fwRefAwareBaseImpl : public T {
 	private:
@@ -215,10 +186,10 @@ namespace rage {
 	static_assert(sizeof(fwExtensionContainer) == 0x10);
 	class fwExtensibleBase : public fwRefAwareBase {
 	public:
-		virtual bool is_of_type(uint32_t hash) = 0;
-		virtual uint32_t const& get_type() = 0;
-		fwExtensionContainer* m_extension_container; // 0x0010
-		void* m_extensible_unk; // 0x0018
+		//virtual bool is_of_type(uint32_t hash) = 0;
+		//virtual uint32_t const& get_type() = 0;
+		fwExtensionContainer* m_extension_container; //0x0010
+		void* m_extensible_unk; //0x0018
 		template <typename T>
 		bool is_of_type() {
 			static auto name = (typeid(T).name()) + 6; // Skip "class "
@@ -227,36 +198,85 @@ namespace rage {
 		}
 	}; //Size: 0x0020
 	static_assert(sizeof(fwExtensibleBase) == 0x20);
-#pragma pack(push, 1)
+	#pragma pack(push, 1)
+	class fwDynamicEntityComponent;
+	class crmtRequestPose;
+	class crmtRequestIk;
+	class crFrameFilter;
+	class fwAudEntity;
 	class fwEntity : public fwExtensibleBase {
 	public:
+		DEFINE_AT_RTTI(fwEntity)
+		virtual void* _0x38(void*, void*) = 0;
+		virtual void AddExtension(void* extension) = 0; // 0x40
+		virtual void _0x48() = 0; // not implemented
+		virtual void _0x50() = 0; // only implemented by CEntityBatch
+		virtual void _0x58() = 0;
+		virtual void SetModelInfo(std::uint16_t* model_index) = 0; // 0x60
+		virtual void _0x68(int, vector4*) = 0;
+		virtual void* _0x70(int) = 0;
+		virtual CNavigation* GetNavigation() = 0; // 0x78
+		virtual CMoveObjectPooledObject* CreateMoveObject() = 0; // 0x80
+		virtual std::uint32_t* GetType() = 0; // 0x88
+		virtual void _0x90() = 0;
+		virtual float _0x98() = 0;
+		virtual bool TryRequestInverseKinematics(rage::crmtRequestPose* pose, rage::crmtRequestIk* ik) = 0; // 0xA0 implemented only by CPed
+		virtual bool TryRequestFacialAnims(void*) = 0; // 0xA8 implemented only by CPed
+		virtual void* _0xB0() = 0;
+		virtual std::uint8_t _0xB8() = 0; // implemented only by CPed
+		virtual rage::crFrameFilter* GetFrameFilter() = 0; // 0xC0
+		virtual rage::fwAudEntity* GetEntityAudio() = 0; // 0xC8
+		virtual void _0xD0() = 0;
+		virtual void SetTransform(matrix44* matrix, bool update_pos) = 0; // 0xD8
+		virtual void SetTransform2(matrix44* matrix, bool update_pos) = 0; // 0xE0
+		virtual void SetPosition(vector4* pos, bool update_pos) = 0; // 0xE8
+		virtual void SetHeading(float heading, bool update_pos) = 0; // 0xF0
+		virtual void SetEntityTypeFlags() = 0; // 0xF8
+		virtual void _0x100() = 0; // not implemented
+		virtual void UpdatePhysics(CNavigation* navigation) = 0; // 0x108
+		virtual void UpdatePhysics2(CNavigation* navigation) = 0; // 0x110
+		virtual void UpdatePosition() = 0; // 0x118
+
+		enum class EntityFlags
+		{
+			IS_VISIBLE = (1 << 0)
+		};
 		class CBaseModelInfo* m_model_info; //0x0020
-		char pad_0028; //0x0028
-		uint8_t m_entity_type;
-		char pad_002A[2]; //0x002A
-		uint8_t m_invisible; //0x002C
-		char pad_002D[3]; //0x002D
+		uint8_t m_entity_type; //0x0028
+		char gap29; //0x0029
+		uint16_t gap2A; //0x002A
+		uint32_t m_flags; //0x002D
 		class CNavigation* m_navigation; //0x0030
-		char pad_0038[16]; //0x0038
-		class fwDrawData* m_draw_data; //0x0048
-		char pad_0050[16]; //0x0050
-		struct vector3 m_right; //0x0060
-		char pad_006C[4]; //0x006C
-		struct vector3 m_forward; //0x0070
-		char pad_007C[4]; //0x007C
-		struct vector3 m_up; //0x0080
-		char pad_008C[4]; //0x008C
-		struct vector3 m_position; //0x0090
-		char pad_009C[4]; //0x009C
-		uint64_t unk_00A0; //0x00A0
-		uint32_t unk_00A8; //0x00A8
-		uint32_t unk_00AC; //0x00AC
-		uint32_t unk_00B0; //0x00B0
-		char pad_00B4[4]; //0x00B4
-		uint8_t unk_00B8; //0x00B8
+		uint16_t gap38; //0x0038
+		uint16_t gap3A; //0x003A
+		uint32_t gap3C; //0x003C
+		class rage::fwDynamicEntityComponent* m_dynamic_entity_component; //0x0040 (stores attachments and stuff)
+		class rage::fwDrawData* m_draw_data; //0x0048
+		class rage::fwDynamicEntityComponent* gap50; //0x0050
+		uint64_t gap58; //0x0058
+		matrix44 m_transformation_matrix; //0x0060
+		rage::fwEntity* m_render_focus_entity; //0x00A0
+		uint32_t m_render_focus_distance; //0x00A8
+		uint32_t m_flags_2; //0x00AC
+		uint32_t m_shadow_flags; //0x00B0
+		char gapB4[4]; //0x00B4
+		std::uint8_t byteB8; //0x00B8
+
+		rage::vector3* get_position()
+		{
+			return reinterpret_cast<rage::vector3*>(&m_transformation_matrix.rows[3]);
+		}
+
+		void model_to_world(const vector3& model_coords, vector3& world_coords)
+		{
+			world_coords.x = model_coords.x * m_transformation_matrix.data[0][0] + model_coords.y * m_transformation_matrix.data[1][0] + model_coords.z * m_transformation_matrix.data[2][0] + m_transformation_matrix.data[3][0];
+			world_coords.y = model_coords.x * m_transformation_matrix.data[0][1] + model_coords.y * m_transformation_matrix.data[1][1] + model_coords.z * m_transformation_matrix.data[2][1] + m_transformation_matrix.data[3][1];
+			world_coords.z = model_coords.x * m_transformation_matrix.data[0][2] + model_coords.y * m_transformation_matrix.data[1][2] + model_coords.z * m_transformation_matrix.data[2][2] + m_transformation_matrix.data[3][2];
+		}
 	}; //Size: 0x00B9
+	constexpr int i = sizeof(fwEntity);
 	static_assert(sizeof(fwEntity) == 0xB9);
-#pragma pack(pop)
+	#pragma pack(pop)
 	class datBitBuffer {
 	public:
 		datBitBuffer(uint8_t* data, uint32_t size) {
@@ -1006,11 +1026,47 @@ namespace rage {
 		static_assert(sizeof(InFrame) == 0xB8);
 		#pragma pack(pop)
 	}
+	class CEntityDrawHandler : public rage::fwDrawData
+	{
+	public:
+
+	};
+	static_assert(sizeof(CEntityDrawHandler) == 0x2C);
 	class CEntity : public fwEntity {
 	public:
-		char pad_00B9[7]; //0x00B9
-		uint32_t unk_00C0; //0x00C0
-		uint32_t unk_00C4; //0x00C4
+		virtual void* _0x120() = 0; // implemented only by CPed
+		virtual void UpdatePositionImpl() = 0; // 0x128
+		virtual void _0x130() = 0;
+		virtual void _0x138(void*) = 0;
+		virtual void _0x140() = 0;
+		virtual void _0x148(int) = 0;
+		virtual bool _0x150() = 0;
+		virtual CEntityDrawHandler* CreateDrawHandler() = 0; // 0x158
+		virtual int GetTypeFlags() = 0; // 0x160
+		virtual int GetTypeFlags2() = 0; // 0x168
+		virtual bool _0x170() = 0; // implemented only by CPickup
+		virtual bool _0x178() = 0;
+		virtual void _0x180(bool) = 0;
+		virtual bool _0x188() = 0;
+		virtual bool _0x190() = 0;
+		virtual void ClearDecals() = 0; // 0x198
+		virtual void GetModelBounds(rage::vector3* bounds) = 0; // 0x1A0
+		virtual void GetModelBounds2(rage::vector3* bounds) = 0; // 0x1A8
+		virtual float GetBoundingBoxSize() = 0; // 0x1B0
+		virtual float _0x1B8(void*) = 0;
+		virtual float _0x1C0(void*) = 0;
+		virtual rage::vector3* _0x1C8() = 0;
+		virtual rage::vector3* GetCameraOffset() = 0; // 0x1D0
+		virtual void GetCameraBasePosition(rage::vector3* pos) = 0; // 0x1D8
+		virtual bool _0x1E0() = 0;
+		virtual bool Update() = 0; // 0x1E8 always returns true
+		virtual bool _0x1F0() = 0;
+		virtual void Warp(rage::vector3* pos, float heading, bool) = 0; // 0x1F8
+
+		uint8_t unk_00B9; //0x00B9
+		char pad_00BA[6]; //0x00BA
+		uint32_t m_flags_3; //0x00C0
+		uint32_t m_flags_4; //0x00C4
 		uint32_t unk_00C8; //0x00C8
 		uint32_t unk_00CC; //0x00CC
 	}; //Size: 0x00D0
@@ -1703,8 +1759,19 @@ public:
 static_assert(sizeof(CPedWeaponManager) == 0x78);
 class CPedFactory {
 public:
-	char pad_0000[8]; //0x0000
-	class CPed* m_local_ped; //0x0008
+	enum class PedCreateFlags {
+        IS_NETWORKED = (1 << 0),
+        IS_PLAYER = (1 << 1)
+    };
+    virtual ~CPedFactory() = default;
+    virtual CPed* CreatePed(std::uint8_t* flags, std::uint16_t* model_index, rage::matrix44* matrix, bool default_component_variation, bool register_network_object, bool give_default_loadout, bool, bool) = 0; // 0x08
+    virtual CPed* CreateClone(std::uint8_t* flags, std::uint16_t* model_index, rage::matrix44* matrix, bool default_component_variation, bool, bool register_network_object, bool) = 0;                          // 0x10
+    virtual CPed* ClonePed(CPed* ped, bool register_network_object, bool link_blends, bool clone_compressed_damage) = 0;                                                                                          // 0x18
+    virtual CPed* ClonePedToTarget(CPed* source, CPed* target, bool clone_compressed_damage) = 0;                                                                                                                 // 0x20
+    virtual CPed* CreatePlayer(std::uint8_t* flags, std::uint16_t model_index, rage::matrix44* matrix, CPlayerInfo* player_info) = 0;                                                                            // 0x28
+    virtual void DestroyPed(CPed* ped) = 0;                                                                                                                                                                       // 0x30
+
+    class CPed* m_local_ped; //0x0008
 }; //Size: 0x0010
 static_assert(sizeof(CPedFactory) == 0x10);
 class CPedModelInfo {
@@ -1873,7 +1940,7 @@ public:
 	uint32_t unk_B944; //0xB944
 	uint16_t unk_B948; //0xB948
 }; //Size: 0xB94A
-static_assert(sizeof(CNetworkPlayerMgr) == 0xB9AA);
+static_assert(sizeof(CNetworkPlayerMgr) == 0xD14A);
 #pragma pack(pop)
 class GtaThread : public rage::scrThread {
 public:
