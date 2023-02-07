@@ -10,12 +10,12 @@ namespace fibers::queue {
 	public:
 		void createScripts() {
 			for (auto i = 0; i < 8; i++) {
-				manager::g_manager->push(fiber(("fiber_" + std::to_string(i)).c_str(), [=] {
+				manager::g_manager->push(("fiber_" + std::to_string(i)).c_str(), [=] {
 					while (true) {
 						this->tick();
 						fiber::cur()->wait();
 					}
-				}));
+				});
 			}
 		}
 	public:
