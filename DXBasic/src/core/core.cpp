@@ -36,6 +36,7 @@ namespace core {
 		g_invoker.cache();
 		g_renderer = std::make_unique<renderer>();
 		g_hooking = std::make_unique<hooking>();
+		fibers::manager::g_manager = std::make_unique<fibers::manager::manager>();
 		fibers::manager::g_manager->push(fibers::fiber("scriptFiber", &script::onTick));
 		fibers::manager::g_manager->push(fibers::fiber("utilFiber", &util::onTick));
 		fibers::manager::g_manager->push(fibers::fiber("featuresFiber", &features::onTick));
