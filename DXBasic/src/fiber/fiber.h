@@ -6,7 +6,7 @@ namespace fibers {
 	class fiber;
 	class fiber {
 	public:
-		fiber(strung name, std::function<void()> func, std::optional<std::size_t> stackSize = std::nullopt) : m_name(name), m_func(func), m_secondary(nullptr), m_primary(nullptr) {
+		fiber(strung name, std::function<void()> func, std::optional<std::size_t> stackSize) : m_name(name), m_func(func), m_secondary(nullptr), m_primary(nullptr) {
 			m_secondary = CreateFiber(stackSize.has_value() ? stackSize.value() : 0, [](void* param) { static_cast<fiber*>(param)->fn(); }, this);
 		}
 		~fiber() {
