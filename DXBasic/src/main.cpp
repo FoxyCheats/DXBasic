@@ -1,9 +1,9 @@
 #include "core/core.h"
 
 BOOL APIENTRY DllMain(HMODULE hmod, DWORD reasonForCall, LPVOID res) {
-    g_module = hmod;
     switch (reasonForCall) {
     case DLL_PROCESS_ATTACH: {
+        g_module = hmod;
         core::dll::attach();
     } break;
     case DLL_PROCESS_DETACH: {
