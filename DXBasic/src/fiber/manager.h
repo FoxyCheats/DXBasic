@@ -42,10 +42,10 @@ namespace fibers::manager {
 			}
 		}
 	public:
-		bool push(fiber fbr) {
+		bool push(strung name, std::function<void()> func, std::optional<std::size_t> stackSize = std::nullopt) {
 			if (m_fibers.size() == m_maxNumOfFibers)
 				return false;
-			m_fibers.insert(std::make_pair(fbr.m_name.c_str(), std::make_unique<fiber>(fbr)));
+			m_fibers.insert(std::make_pair(name.c_str(), std::make_unique<fiber>(name, func, stackSize)));
 			return true;
 		}
 		bool erase(char const* name) {
