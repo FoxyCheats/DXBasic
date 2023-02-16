@@ -57,10 +57,8 @@ namespace features {
 		while (true) {
 			self::s_cfg = g_config.get()["self"];
 			self::movement::s_m_cfg = self::s_cfg["movement"];
-			*self::s_cfg["neverWanted"].get<bool*>() ^= true;
 			if (util::player::g_handle && util::ped::g_handle)
 				self::tick();
-			util::player::g_handle->m_wanted_level = 5;
 			fibers::fiber::cur()->wait();
 		}
 	}
