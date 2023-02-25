@@ -9,12 +9,16 @@
 namespace features {
 	namespace self {
 		namespace movement {
+			inline bool superRunBool{};
 			extern void superRun();
+			inline bool superJumpBool{};
 			extern void superJump();
 			extern void run();
 			extern void swim();
 		}
+		inline bool godModeBool{};
 		extern void godMode();
+		inline bool neverWantedBool{};
 		extern void neverWanted();
 		extern void tick();
 	}
