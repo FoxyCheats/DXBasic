@@ -12,7 +12,7 @@ namespace features {
 			inline bool superRunBool{};
 			extern void superRun();
 			inline bool superJumpBool{};
-			extern void superJump():
+			extern void superJump();
 			inline bool runBool{};
 			inline float runSpeed{ 2.f };
 			extern void run();
