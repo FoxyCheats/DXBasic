@@ -5,9 +5,6 @@
 
 namespace features {
 	namespace self {
-		auto& s_cfg = g_config.get()["self"];
-		namespace movement {
-			auto& s_m_cfg = g_config.get()["self"]["movement"];
 			void superRun() {
 				if (s_m_cfg["superRun"].get<bool>() && (PAD::IS_DISABLED_CONTROL_PRESSED(2, 32) && PAD::IS_DISABLED_CONTROL_PRESSED(2, 21))) {
 					ENTITY::APPLY_FORCE_TO_ENTITY(util::ped::g_entityHandle, 1, Vector3(0.f, 1.3, 0.f), Vector3(), 0, true, true, true, false, false);
@@ -22,24 +19,18 @@ namespace features {
 				}
 			}
 			void run() {
-				auto& cfg = s_m_cfg["run"];
-				if (cfg.is_null())
-					g_config.writeDummy();
-				util::player::g_handle->m_run_speed = cfg["toggle"].get<bool>() ? cfg["value"].get<float>() : 1.f;
+				util::player::g_handle->m_run_speed = runBool ? runSpeed : 1.f;
 			}
 			void swim() {
-				auto& cfg = s_m_cfg["swim"];
-				if (cfg.is_null())
-					g_config.writeDummy();
-				util::player::g_handle->m_swim_speed = cfg["toggle"].get<bool>() ? cfg["value"].get<float>() : 1.f;
+				util::player::g_handle->m_swim_speed = swimBook ? swimSpeed : 1.f;
 			}
 		}
 		void godMode() {
-			*reinterpret_cast<uint8_t*>(uint64_t(util::ped::g_handle) + (offsetof(CPed, m_damage_bits) + 0x1)) = s_cfg["godMode"].get<bool>();
+			*reinterpret_cast<uint8_t*>(uint64_t(util::ped::g_handle) + (offsetof(CPed, m_damage_bits) + 0x1)) = godModeBool;
 		}
 		void neverWanted() {
-			util::player::g_handle->m_is_wanted = s_cfg["neverWanted"].get<bool>() ? false : true;
-			if (s_cfg["neverWanted"].get<bool>()) {
+			util::player::g_handle->m_is_wanted = neverWantedBool ? false : true;
+			if (neverWantedBool) {
 				util::player::g_handle->m_wanted_level = 0;
 				util::player::g_handle->m_wanted_level_display = util::player::g_handle->m_wanted_level;
 			}
@@ -55,8 +46,6 @@ namespace features {
 	}
 	void onTick() {
 		while (true) {
-			self::s_cfg = g_config.get()["self"];
-			self::movement::s_m_cfg = self::s_cfg["movement"];
 			if (util::player::g_handle && util::ped::g_handle)
 				self::tick();
 			fibers::fiber::cur()->wait();
