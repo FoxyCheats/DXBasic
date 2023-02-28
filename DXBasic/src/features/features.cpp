@@ -6,14 +6,14 @@
 namespace features {
 	namespace self {
 			void superRun() {
-				if (s_m_cfg["superRun"].get<bool>() && (PAD::IS_DISABLED_CONTROL_PRESSED(2, 32) && PAD::IS_DISABLED_CONTROL_PRESSED(2, 21))) {
+				if (superRunBool && (PAD::IS_DISABLED_CONTROL_PRESSED(2, 32) && PAD::IS_DISABLED_CONTROL_PRESSED(2, 21))) {
 					ENTITY::APPLY_FORCE_TO_ENTITY(util::ped::g_entityHandle, 1, Vector3(0.f, 1.3, 0.f), Vector3(), 0, true, true, true, false, false);
 					PLAYER::SET_PLAYER_SPRINT(util::ped::g_entityHandle, true);
 					PLAYER::SET_RUN_SPRINT_MULTIPLIER_FOR_PLAYER(util::ped::g_entityHandle, 5.f);
 				}
 			}
 			void superJump() {
-				if (s_m_cfg["superJump"].get<bool>() && !PED::IS_PED_IN_ANY_VEHICLE(util::ped::g_entityHandle, false) && !ENTITY::IS_ENTITY_IN_AIR(util::ped::g_entityHandle) && !PED::IS_PED_DOING_A_BEAST_JUMP(util::ped::g_entityHandle)) {
+				if (superJumpBool && !PED::IS_PED_IN_ANY_VEHICLE(util::ped::g_entityHandle, false) && !ENTITY::IS_ENTITY_IN_AIR(util::ped::g_entityHandle) && !PED::IS_PED_DOING_A_BEAST_JUMP(util::ped::g_entityHandle)) {
 					if (PAD::IS_CONTROL_JUST_PRESSED(2, 22))
 						TASK::TASK_JUMP(util::ped::g_entityHandle, true, true, true);
 				}
