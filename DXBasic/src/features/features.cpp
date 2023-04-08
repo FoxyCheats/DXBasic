@@ -5,6 +5,7 @@
 
 namespace features {
 	namespace self {
+		namespace movement {
 			void superRun() {
 				if (superRunBool && (PAD::IS_DISABLED_CONTROL_PRESSED(2, 32) && PAD::IS_DISABLED_CONTROL_PRESSED(2, 21))) {
 					ENTITY::APPLY_FORCE_TO_ENTITY(util::ped::g_entityHandle, 1, Vector3(0.f, 1.3, 0.f), Vector3(), 0, true, true, true, false, false);
@@ -22,7 +23,7 @@ namespace features {
 				util::player::g_handle->m_run_speed = runBool ? runSpeed : 1.f;
 			}
 			void swim() {
-				util::player::g_handle->m_swim_speed = swimBook ? swimSpeed : 1.f;
+				util::player::g_handle->m_swim_speed = swimBool ? swimSpeed : 1.f;
 			}
 		}
 		void godMode() {
