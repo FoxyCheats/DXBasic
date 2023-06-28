@@ -1,5 +1,6 @@
 #include "script/self/self.h"
 #include "script/self/movement/movement.h"
+#include "features/features.h"
 
 namespace script {
 	self::self() : submenu("Self", &self::call) {}
